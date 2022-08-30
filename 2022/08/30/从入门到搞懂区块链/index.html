@@ -1,0 +1,925 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 🚀从入门开始到搞懂区块链  Blog  By  Science_Jun  1. 新时代的展望——区块链的价值A. 🚀在传统的互联网即信息互联网中，只能够实现信息之间的传播，例如张三把他今天没吃饭这件事告诉了李四，但这仅仅是将消息广播出去了而已，却不能够实现价值的传递。大胆设想，一根头发本身没有价值，但通过区块链，张三用一个比特币买下了这根头发，那么这根头发现在就被赋予了一个比特币的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从入门到搞懂区块链">
+<meta property="og:url" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="[TOC] 🚀从入门开始到搞懂区块链  Blog  By  Science_Jun  1. 新时代的展望——区块链的价值A. 🚀在传统的互联网即信息互联网中，只能够实现信息之间的传播，例如张三把他今天没吃饭这件事告诉了李四，但这仅仅是将消息广播出去了而已，却不能够实现价值的传递。大胆设想，一根头发本身没有价值，但通过区块链，张三用一个比特币买下了这根头发，那么这根头发现在就被赋予了一个比特币的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/1.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/2.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/3.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/14.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/4.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/5.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/5.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/6.jpeg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/7.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/7.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/8.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/9.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/2.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/10.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/11.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/12.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/13.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/8.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/1.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/Users/施万俊0728/Desktop/区块链blog图片/重点.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/3.jpg">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/18.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/15.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/20.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/19.png">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/16.webp">
+<meta property="og:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE%5Ctrue%5C17.webp">
+<meta property="article:published_time" content="2022-08-30T02:06:51.000Z">
+<meta property="article:modified_time" content="2022-08-30T02:13:25.552Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/1.png">
+  
+  
+  
+  <title>从入门到搞懂区块链 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>77Brotherの技术小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从入门到搞懂区块链"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-30 10:06" pubdate>
+          2022年8月30日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          109 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从入门到搞懂区块链</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="🚀从入门开始到搞懂区块链"><a href="#🚀从入门开始到搞懂区块链" class="headerlink" title="🚀从入门开始到搞懂区块链"></a>🚀从入门开始到搞懂<em><strong>区块链</strong></em></h1><blockquote>
+<p> Blog  By  Science_Jun</p>
+</blockquote>
+<h2 id="1-新时代的展望——区块链的价值"><a href="#1-新时代的展望——区块链的价值" class="headerlink" title="1. 新时代的展望——区块链的价值"></a>1. 新时代的展望——区块链的价值</h2><p><strong>A.</strong> 🚀在传统的互联网即信息互联网中，只能够实现信息之间的传播，例如张三把<strong>他今天没吃饭</strong>这件事告诉了李四，但这仅仅是将消息广播出去了而已，却不能够实现<u>价值的传递</u>。大胆设想，一根头发本身没有价值，但通过区块链，张三<strong>用一个比特币</strong>买下了这根头发，那么这根头发现在就被赋予了一个比特币的价值，这就是价值之间的传递。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>​         而在区块链中，恰恰能够<strong>点对点</strong>的解决价值传递的问题。这就是区块链的<strong>第一个价值</strong>所在。</p>
+<hr>
+<p><strong>B.</strong> 🚀<strong>阐述这一价值前，我想问大家一个问题：</strong>当你使用支付宝付款，你的信任基础是什么？是**<u>阿里巴巴</u><strong>这个</strong>企业<strong>，这个</strong>品牌**，还是他背后运行的代码？</p>
+<blockquote>
+<p>我想你内心的答案显而易见 [🐕doge]</p>
+<p>是的，99.99999%的人信任的是品牌，企业，组织而非代码</p>
+</blockquote>
+<p>【信任人或组织的代价是什么？】</p>
+<blockquote>
+<p>人心叵测，想要打造出一个让人信任的企业或者品牌，往往需要与时间和巨额投资赛跑~ ~ 具市场调研，通常至少需要半个爽！！！可以说，成本极其昂贵。Σ(っ °Д °;)っ</p>
+</blockquote>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p>​         <strong>而</strong>在区块链的世界中，代码就代表着<strong>法律</strong>，它能够做到代码活动的<strong>公开透明性</strong>，从而使执行者在基于代码信任的基础上，实现经济活动。乍一听，这还蛮高深的，其实说白了，区块链就是个<strong>“透视镜”</strong>，在这里，没有暗箱操作，也没有小黑屋，大家都能够监视经济活动的执行。</p>
+<hr>
+<p><strong>C.<strong>🚀关于区块链的</strong>其他价值</strong>，在这里我不过多赘述，后面的教程会详细展开，朋友们直接上图！</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<hr>
+<h2 id="2-不仅仅是数字货币——区块链的应用"><a href="#2-不仅仅是数字货币——区块链的应用" class="headerlink" title="2. 不仅仅是数字货币——区块链的应用"></a>2. 不仅仅是数字货币——区块链的应用</h2><h3 id="💎-区块链应用-行业"><a href="#💎-区块链应用-行业" class="headerlink" title="💎 区块链应用-行业"></a>💎 区块链应用-行业</h3><ol>
+<li><p>🚀<strong>银行业：</strong>银行是一个安全的存储仓库和价值的交换中心，而区块链作为一种数字化的、安全的以及<strong>防篡改的</strong>总账账簿可以达到相同的功效。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<hr>
+</li>
+<li><p>🚀<strong>医疗业：</strong> 一直以来，医疗机构都要忍受无法在各平台上**<u>安全地共享数据</u><strong>。数据提供商之间更好的数据合作意味着更精确的诊断，更有效的治疗，以及提升医疗系统提供经济划算的医疗服务的整体能力。区块链技术可以让医院、患者和医疗利益链上的各方在区块链网络里</strong>共享数据<strong>，而不必</strong>担忧**数据的安全性和完整性。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/4.webp" srcset="/img/loading.gif" lazyload alt="4"></p>
+<hr>
+</li>
+<li><p>🚀<strong>物联网行业：</strong>使用区块链技术形成一个物联网设备去中心化网络的主体。根据部分网站，作为<strong>匿名的去中心化的</strong>点对点遥感技术，区块链可以成为大量设备的一种<strong>公共账簿</strong>，它们将不再需要有一个中央化的 路由在他们之间居中交通。在没有了中央控制系统来验证之后，设备将能够在它们之间互相匿名传输，并管理软件的更新、错误，或者进行能源管理。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/5.webp" srcset="/img/loading.gif" lazyload alt="5"></p>
+</li>
+</ol>
+<p>​              <u><strong>不理解没关系，举个例子：区块链+物流链</strong></u></p>
+<ul>
+<li><p>以一直受假冒伪劣产品困扰的茅台酒的防伪技术为例，2000年起，其酒盖里有一个唯一的<em>RFID标签</em>，可通过手机等设备以<em><strong>NFC</strong></em>方式读出，然后通过茅台的APP进行校验，以此防止伪造产品。 <strong>乍一看</strong>，这种防伪效果非常可靠。但2016年还是引爆了茅台酒防伪造假，虽然通过NFC方式验证OK，但经茅台专业人士鉴定为假酒。后来，在<strong>国酒茅台防伪溯源系统</strong>数据库审计中发现<em><strong>80万条假</strong></em>的防伪标签记录💔，原来防伪技术公司人员参与伪造。随后，茅台改用<strong>安全芯片防伪标签</strong>。<strong>然而</strong>，这里暴露出来的痛点并没有解决，即防伪信息掌握在某个中心机构中，有权限的人可以<strong>任意</strong>修改。因此2017年05月贵阳数博会上，马子哥就建议<strong>茅台防伪使用区块链</strong>，<strong>那么区块链和物流链的结合有什么优势呢？</strong></p>
+<hr>
+</li>
+<li><p>🚀以上问题在本节<strong>最后</strong>公布答案，可以自己先思考一下哦😊！！</p>
+</li>
+</ul>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/5.jpg" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p>​       </p>
+<ol start="4">
+<li><p>🚀<strong>房地产行业：</strong>买卖产权的过程中的<strong>痛点</strong>在于：交易过程中和交易后缺乏透明，大量的文书工作，潜在的欺诈行为，公共记录中的错误等等，而这些还仅仅只是一部分。区块链提供了一个途径去实现无纸化和快速交易的需求。房地产区块链应用可以帮助记录、追溯和转移地契、房契、留置权等等，还给金融公司、产权公司和抵押公司提供了一个平台。区块链技术致力于<strong>安全保存文件</strong>，同时增强<strong>透明性</strong>，<strong>降低成本</strong>。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/6.jpeg" srcset="/img/loading.gif" lazyload alt="6"></p>
+<hr>
+</li>
+<li><p>🚀<strong>汽车业：</strong>早在2017年，就有<strong>大佬</strong>宣布合伙使用区块链建立一个概念证明来简化汽车租赁过程，并把它建成一个<strong>“点击，签约，和驾驶”</strong>的过程。未来的客户选择他们想要租赁的汽车，<strong>进入区块链的公共总账</strong>；然后，坐在驾驶座上，客户签订租赁协议和保险政策，而区块链则是同步更新信息。 这不是一个想象，对于汽车销售和汽车登记来说，这种类型的过程也可能会发展为现实。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/7.webp" srcset="/img/loading.gif" lazyload alt="7"></p>
+<hr>
+</li>
+<li><p>🚀保险业，云存储，股市交易，学术界，能源管理….<strong>只有你想不到的，</strong></p>
+<p><strong>没有区块链技术不能涉及到</strong>的行业👍👍👍<img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/7.jpg" srcset="/img/loading.gif" lazyload alt="7" style="zoom:20%;"></p>
+</li>
+</ol>
+<h3 id="💎-区块链应用-具体经典实例"><a href="#💎-区块链应用-具体经典实例" class="headerlink" title="💎 区块链应用-具体经典实例"></a>💎 区块链应用-具体经典实例</h3><ol>
+<li><p><strong>电子身份证（版权保护）：</strong>将“申请人+发布时间+发布内容”等<strong>版权</strong>信息加密后上传，版权信息用于<strong>唯一区块链ID</strong>，相当拥有了一张电子身份证。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/8.webp" srcset="/img/loading.gif" lazyload alt="8"></p>
+<ol start="2">
+<li><p><strong>腾讯公益寻人链（信息共享）：</strong>区块链本身就是需要保持各个节点的数据一致性的，可以说是<strong>自带信息共享</strong>功能；其次，实时的问题通过区块链的<strong>P2P</strong>技术可以实现；最后，利用区块链的<strong>不可篡改和共识机制</strong>，可构建其一条<strong>安全可靠</strong>的信息共享通道。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/9.webp" srcset="/img/loading.gif" lazyload alt="9"></p>
+</li>
+</ol>
+</li>
+<li><p><strong>茅台酒防伪溯源（区块链+物流链）：</strong>上文说到在2017年05月贵阳数博会上，马子哥建议<strong>茅台防伪使用区块链</strong>。<strong>咱们书接上文[doge🐕]:</strong></p>
+<ol>
+<li><p>🚀<strong>去中心化：</strong>区块链没有中心化节点，各节点是平等的，掌握单个节点无法实现修改数据；需要掌控足够多的节点，才可能伪造数据，<em><strong>大大提高伪造数据的成本</strong></em>。</p>
+</li>
+<li><p>🚀<strong>透明可追踪：</strong>区块链天生的开放、透明，使得任何人都可以<em><strong>公开查询</strong></em>，伪造数据被发现的概率大增。</p>
+</li>
+<li><p>🚀<strong>不可篡改和伪造：</strong>区块链的数据不可篡改性，也保证了已销售出去的产品信息已永久记录，无法通过简单复制防伪信息蒙混过关，实现二次销售。</p>
+</li>
+<li><p>🚀<strong>数据安全及信用的自我建立：</strong>物流链的所有节点上区块链后，商品从生产商到消费者手里都有迹可循，形成完整链条；商品缺失的环节越多，将暴露出其是伪劣产品概率更大。</p>
+</li>
+</ol>
+<blockquote>
+ <img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/2.jpg" srcset="/img/loading.gif" lazyload alt="2" style="zoom: 25%;">
+
+<p> Soga！马子哥诚不欺我！！果然是聪明人！(<em>^_^</em>)</p>
+<p> 有了区块链，再也不用当冤大头喝假酒了！</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>数字人民币DECP（P2P价值传递）：</strong>全称<em><strong>Digital Currency Electronic Payment</strong></em>，DC指的是数字货币，EP指的电子支付。早在2014年，央行便开始着手DCEP的研究。2020年已在深圳、苏州、雄安、成都试点。从性质上看，DCEP，属于法定货币，是数字化的纸币，和人民币金额是1:1的关系，没有投资和投机价值。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/10.webp" srcset="/img/loading.gif" lazyload alt="10"></p>
+</li>
+<li><p><strong>阳光链（区块链慈善）：</strong>区块链的<strong>去中心化，不可篡改和可溯源</strong>与与慈善行业的需求场景高度吻合，阳光链成为了区块链技术在慈善行业的典型应用。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+</li>
+<li><p><strong>跨境支付（跨境支付+区块链）：</strong></p>
+<ol>
+<li><p>🚀<strong>传统跨境支付：</strong>跨境支付涉及多种币种，存在汇率问题，传统跨境支付非常依赖于第三方机构，大致的简化模型如下图所示，存在着两个问题：</p>
+<ol>
+<li>流程繁琐，结算周期长</li>
+<li>手续费高</li>
+</ol>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/12.webp" srcset="/img/loading.gif" lazyload alt="12"></p>
+<blockquote>
+<p>这些问题的存在，很大原因还是<strong>信息不对称</strong>，<strong>没有建立有效的信任机制</strong>。</p>
+</blockquote>
+</li>
+<li><p>🚀<strong>跨境支付+区块链：</strong>区块链的引入，解决了跨境支付信息不对称的问题，并建立起一定程度的信任机制。</p>
+<ol>
+<li><p><strong>效率提高，费用降低：</strong>接入区块链技术后，通过公私钥技术，保证数据的可靠性，再通过加密技术和去中心，达到数据不可篡改的目的，最后，通过P2P技术，实现点对点的结算；去除了传统中心转发，提高了效率，降低了成本（也展望了普及跨境小额支付的可能性）。</p>
+</li>
+<li><p><strong>可追溯，符合监管需求：</strong>传统的点对点结算不能不规模应用，除了信任问题，还有就是存在监管漏洞（点对点私下交易，存在洗黑钱的风险），而区块链的交易透明，信息公开，交易记录永久保存实现了可追溯，符合监管的需求。</p>
+</li>
+</ol>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/13.webp" srcset="/img/loading.gif" lazyload alt="13"></p>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>看了这么多实际案例，不管你看明白了几个，是否对区块链的特</p>
+<p>点与优势有了进一步的了解呢 <strong>QAQ</strong>？<img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/8.jpg" srcset="/img/loading.gif" lazyload alt="8" style="zoom:20%;"></p>
+<p>让我来考考你吧！准备好了吗🙆‍</p>
+</blockquote>
+<h3 id="🚀请回答出区块链的至少四个特点"><a href="#🚀请回答出区块链的至少四个特点" class="headerlink" title="🚀请回答出区块链的至少四个特点"></a><strong>🚀请回答出区块链的至少四个特点</strong></h3><hr>
+<h2 id="3-区块链风云历史（重点）"><a href="#3-区块链风云历史（重点）" class="headerlink" title="3. 区块链风云历史（重点）"></a>3. 区块链风云历史（重点）</h2><blockquote>
+<p> <strong>【为什么】要了解区块链的历史 ?</strong></p>
+<p> 帅气的 <strong>Science_Jun【doge🐕】</strong>曾言：历史是一面镜子，它照亮现实，也照亮未来（好吧，其实是赵鑫珊老师说的~）</p>
+<p> 恰如此言之意：了解一门技术的发展历程，尤其是区块链这位万众瞩目的后起之秀，正是起着<strong>继往开来以明志</strong>的作用。（好吧摊牌了，其实也是为了和你不了解区块链的朋友或同事<strong>吹牛逼</strong> 🐂）但这不是重点！<strong>重点</strong>是如果你和懂区块链的人聊了起来，当他谈起<strong>v神</strong>的传奇历史，你的脑海里却只浮现出四个字：<strong>v神是谁….？</strong>这不得尴尬地脚趾抠出三室一厅了…</p>
+ <img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/1.jpg" srcset="/img/loading.gif" lazyload alt="1" style="zoom: 33%;">
+</blockquote>
+<p><a href="%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%BD%9C%E4%B8%BA%E4%B8%80%E7%A7%8D**%E6%96%B0%E5%9E%8B%E5%88%9B%E9%80%A0%E4%BF%A1%E4%BB%BB**%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BA%86%E7%82%B9%E5%AF%B9%E7%82%B9%EF%BC%88P2P%EF%BC%89%E7%9A%84%E4%BB%B7%E5%80%BC%E4%BC%A0%E9%80%92%EF%BC%8C%E5%8F%97%E5%88%B0%E4%BA%86%E5%BE%88%E5%A4%9A%E8%A1%8C%E4%B8%9A%E7%9A%84%E8%BF%BD%E6%8D%A7%EF%BC%8C%E9%82%A3%E4%B9%88%E5%B0%B1%E7%9B%AE%E5%89%8D%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8F%91%E5%B1%95%E6%9D%A5%E7%9C%8B%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8F%AF%E4%BB%A5%E5%BA%94%E7%94%A8%E7%9A%84%E8%A1%8C%E4%B8%9A%E6%9C%89%E5%93%AA%E4%BA%9B%E5%91%A2%EF%BC%9F">^前言</a>: 区块链发展的历史可不是简简单单就能描述完的，真要彻头彻尾的讲完整，我想大家需要准备一下睡衣睡裤了Σ(っ °Д °;)っ所以在此之前我需要向大家提出区块链绕不开的名人，以便大家快速鸟瞰这区块链发展的长河</p>
+<h3 id="💎中本聪-amp-Wei-Dai-——-灵光乍现的渊源"><a href="#💎中本聪-amp-Wei-Dai-——-灵光乍现的渊源" class="headerlink" title="💎中本聪&amp;Wei Dai —— 灵光乍现的渊源"></a>💎中本聪&amp;Wei Dai —— 灵光乍现的渊源</h3><blockquote>
+<p>早在2008年11月1日，一个名叫<strong>中本聪</strong>的极客为了表达对政府肆意制造通货膨胀的不满，发表了一篇名为**<u>《比特币：一种点对点式的电子现金系统》</u>**的论文，这篇文章，标志了区块链技术的正式诞生。</p>
+<p>然而，很多人不知道的是，其实区块链的底层构想并不是由中本聪最先提出。早在比特币诞生的前10年，就由一位名为<strong>Wei Dai</strong>的华人密码学家放在了他的一个名为<strong>B- Money</strong>的研究之中。</p>
+</blockquote>
+<h4 id="⭐【神秘人中本聪】"><a href="#⭐【神秘人中本聪】" class="headerlink" title="⭐【神秘人中本聪】"></a>⭐【神秘人中本聪】</h4><p> 区块链世界里最神秘的人，非比特币发明者中本聪莫属。</p>
+<p>现在唯一可以确定的是，中本聪是比特币的第一个矿工。</p>
+<ul>
+<li>2009年1月3日，中本聪挖出了第一个比特币区块，也称<u>创世区块</u>，并获得了50个比特币的系统奖励。</li>
+<li>2009年2月11日，中本聪注册了P2P Foundation，资料显示，中本聪是一个43岁的日本男性，至于该信息是真实的，还是中本聪的障眼法，不得而知。当天，中本聪在上面声称，他开发了一个叫比特币的电子现金系统，并给出了开源代码。</li>
+<li>2010年12月5日，在维基解密泄露美国外交电报事件期间，比特币社区呼吁维基解密接受比特币捐款，以打破封锁。为保护襁褓中的比特币，中本聪义无反顾地站出来，<u>坚决反对捐款</u>，他的理由是：比特币还很弱小，经不起冲击和争议。</li>
+<li>2010年12月12日，中本聪在比特币论坛中发表了最后一篇文章，提及了最新版本软件中的一些小问题。此后，仅通过电子邮件与比特币核心开发团队的少数人保持联系，不再公开发表任何言论。</li>
+<li>2011年4月26日，中本聪在一封电子邮件中写道：“我已转移到其他事物上去了。”从此，中本聪的电子邮件关闭了。</li>
+<li>2014年，Newsweek发布新闻，表示自己找到了中本聪本人——多利安·中本聪；9月13日，中本聪突然发帖否认此事，随后，多利安·中本聪也表示，自己并不是比特币创始人中本聪。</li>
+<li>2018年11月29日，时隔多年，“中本聪”账号发布了仅有一词的状态<u>“Nour”</u>，引起比特币社区热议，但不知是黑客入侵还是真的中本聪在操作。</li>
+</ul>
+<p>现在，虽然有无数研究者、情报人员调查过他的真实身份，但至今未得到核实。</p>
+<hr>
+<p>【💎<strong>讲点有意思的，坊间关于中本聪的猜测：】</strong></p>
+<p><strong>1、外星人</strong></p>
+<p>有人大胆猜想，是不是像科幻电影里常见的剧情，一个月黑星高的夜晚，外星人中本聪乘坐飞碟，悄无声息地来到地球，把比特币的开源代码传到互联网上。当他的光荣使命完成后，又选择了默默地离开，不带走一片云彩。</p>
+<p><strong>2、未来穿越者</strong></p>
+<p>有人开脑洞地认为，中本聪可能是未来人，为了平衡目前经济社会的资本，穿越到了这个时代，创造了比特币。</p>
+<p><strong>3、已离世</strong></p>
+<p>有人猜想，中本聪有可能得了重病或者遭遇意外，在2011年便去世了，因此中本聪掌握的比特币私钥也一起消失了，100多万个比特币将永久沉睡。</p>
+<p><strong>4、一个团队</strong></p>
+<p>有人研究了比特币的代码，认为太精妙了，不像单个人所为，更像一个团队写的。可能这个团队都是顶尖人才，创造比特币是一个长久以来的计划，酝酿了几年时间，最后才慢慢成型的。</p>
+<p><strong>5、英国人</strong></p>
+<p>理由是，他会用很溜的英式英语，他的活动时差显示他主要生活在美国，加上他取了一个日本名字，所以说，他是披着日本外衣在美国生活的英国人。但这些特征，也可能是中本聪用的障眼法。</p>
+<p>最后，你可能会好奇地问，有了这么伟大的成就，<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzUyNzE4MDM2MA==&chksm=fa01d435cd765d2337c5f8c0b3c39cef62239509427f80e70ab129e2b2cd497fc6dca6dd638a&idx=2&mid=2247492370&scene=21&sn=8ab204a6c437a83052938abbc68e9889#wechat_redirect">有了巨大的财富</a>，为什么中本聪还要隐藏自己呀？</p>
+<p><strong>其中一个猜测是，中本聪对去中心化的理念非常执着，他觉得只有自己消失，比特币的系统才会是安全的去中心化。</strong></p>
+<p>不管中本聪是“他”，是“他们”，还是“它”，中本聪已经改变了这个世界，<strong>每一个为比特币做过贡献的或者正在做贡献的人，其实都是中本聪！</strong></p>
+<p>[^想了解更多的同学来这吧~]: <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%AD%E6%9C%AC%E8%81%AA/5740822?fr=aladdin">中本聪_百度百科 (baidu.com)</a><br>[^中本聪的那篇论文，实在有兴趣的同学可以观摩(￣▽￣)]:   <a href="%5Bbitcoin.pdf%5D(https://bitcoin.org/bitcoin.pdf)">《比特币：一种点对点式的电子现金系统》</a><br>[^以上部分内容取自]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/mrRqAEr7ci9s2v0/article/details/113285330">科普|中本聪到底是谁？</a></p>
+<p>🚀大家都知道中本聪提出了区块链技术，而知道<strong>Wei Dai</strong>的人却寥寥无几，那么<strong>Wei Dai</strong>到底是何方神圣？</p>
+<img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/Users\施万俊0728\Desktop\区块链blog图片\重点.webp" srcset="/img/loading.gif" lazyload alt="重点" style="zoom: 33%;">
+
+<p>🚀说起<strong>Wei Dai</strong>，那么便绕不开一个神秘的组织——<strong>密码朋克</strong>！</p>
+<hr>
+<h3 id="💎密码朋克——区块链的重要精神先驱"><a href="#💎密码朋克——区块链的重要精神先驱" class="headerlink" title="💎密码朋克——区块链的重要精神先驱"></a>💎密码朋克——区块链的重要精神先驱</h3><blockquote>
+<p>​         在比特币之前，区块链的很多基础技术概念其实都来自于一个于1993年成立的神秘邮件列表组织——<strong>密码朋克（Cypherpunk）</strong>。</p>
+<p>​         密码朋克是一个<strong>提倡使用强加密算法来保持个人隐私安全的“极客组织”</strong>，其成员有很多我们如今耳熟能详的计算机大佬们，包括维<strong>基解密的创始人朱利安·阿桑奇、“万维网之父”蒂姆伯纳斯·李、Facebook的原创始人肖恩·帕克等等，当然，也包括Wei Dai和中本聪。</strong></p>
+<p>​         早在上个世纪90年代末，密码朋克就诞生了很多对日后区块链影响深远的基础构想和技术，包括亚当·贝克发明的<strong>PoW算法</strong>、斯图尔特·哈伯和斯科特·斯托内塔提出的用时间戳方法保证数字文件安全的协议，Wei Dai所提出的匿名、分布式的电子加密货币系统等。<strong>因此从某种程度上来说，区块链技术其实并不是中本聪灵光乍现的原始发明，而是对密码朋克群组一系列技术的集大成。</strong></p>
+<p>​         其中，Wei Dai所提出的B-money构想可以说是<strong>区块链的重要精神先驱</strong>。[B-money可以理解为用B换钱，这样就好记了(<em>^_^</em>)]</p>
+<p>​          <strong>B-money 的设计在很多关键的技术特质上与比特币非常相似。</strong>它率先提出了分布式账本的理念，要求所有的账户持有者共同决定计算量的成本并就此达成一致意见，并首次引入了<strong>PoW机制、数字签名、P2P交易、智能合约、身份验证</strong>等概念。</p>
+<p>​         但作为一个并不完备的构想，当时的B-money在很多内容上都是浅尝辄止，在共识模型、奖惩机制、货币的创造等方面没有提出详细的解决方案，因此只是停留在了设计层面并没有付诸实践，在当时也没有引起很大的水花。</p>
+<p>​         一直到2008年，中本聪<strong>基于前人的各种想法开始设计比特币</strong>。整理成文后他首先将文章发给了<strong>PoW算法</strong>的发明者亚当·贝克，亚当·贝克看完后发现比特币的运行机制跟Wei Dai多年前提出的B-Money有很多相似之处，于是建议中本聪要引用一下B-Money。<strong>接着，中本聪去认真研读了B-Money后也惊奇地发现早在十年前Wei Dai就和自己有了几乎一样的想法，同时又借鉴了B-Money里的一些机制对比特币进行了完善。</strong></p>
+</blockquote>
+<p>⚽想要进一步了解B-money这一<strong>创世的构想</strong>，可以去参考这篇文章 <a target="_blank" rel="noopener" href="https://www.panewslab.com/zh/articledetails/D44115590.html">WeiDai的B-Money，也许是比特币的初稿</a></p>
+<h4 id="⭐【纪念WeiDai】"><a href="#⭐【纪念WeiDai】" class="headerlink" title="⭐【纪念WeiDai】"></a>⭐【纪念WeiDai】</h4><p>📕很可惜，<strong>Wei Dai</strong>到如今都仍是以神秘人的身份出现在世人目光范围里，且只有极少数人知道他，或许这就是属于一代极客的浪漫——<u>“事了拂衣去，深藏功与名”</u>。B-money是密码朋克社区对研发数字世界中的独立自主的货币的又一次探索，2013年，Vitalik Buterin一手构建的以太坊（Ethereum）最小单位<strong>Wei</strong>，便以他的名字命名。</p>
+<ul>
+<li>向勇于探索的前辈致敬<img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/emoji/3.jpg" srcset="/img/loading.gif" lazyload alt="3" style="zoom:25%;"></li>
+<li>知道他你就可以和你的区块链朋友一起吹🐂了[doge]</li>
+</ul>
+<h3 id="💎Vitalik-Buterin——鲜衣怒马少年时"><a href="#💎Vitalik-Buterin——鲜衣怒马少年时" class="headerlink" title="💎Vitalik Buterin——鲜衣怒马少年时"></a>💎Vitalik Buterin——鲜衣怒马少年时</h3><p><strong>简介：</strong>我想用<strong>鲜衣怒马少年时</strong>来描述V神比较合适：</p>
+<ul>
+<li><p>5岁时便开始接触编程语言</p>
+</li>
+<li><p>7岁独自创建了一个叫“兔子百科全书”的复杂文档</p>
+</li>
+<li><p>12岁起就用C++编写给自己玩的小游戏</p>
+</li>
+<li><p>13-16岁青春期网瘾少年，沉迷<strong>魔兽世界</strong></p>
+<p>（终于找到和我一样的经历了&#x2F;(ㄒoㄒ)&#x2F;~~）</p>
+</li>
+<li><p>网瘾少年到一代神话的奇幻转折 </p>
+</li>
+<li><p>17岁从父亲口中听说到比特币</p>
+</li>
+<li><p>省略一万字……………………..</p>
+</li>
+<li><p>25岁身价上百亿美元</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/18.webp" srcset="/img/loading.gif" lazyload alt="18"></p>
+</li>
+</ul>
+<blockquote>
+<p>Vitalik Buterin，就是我们常说的V神，区块链世界传奇⼈物，⾝家⼀度超过了巅峰时期的马云。</p>
+<p>Vitalik Buterin的成功来⾃两个⽅⾯：⼀是从⼩就展现出来的过⼈智商和⾮凡天赋，他只花了⼏个⽉的时间，就学会了加拿⼤当地的语⾔，甚⾄在⾝边的伙伴还懵懵懂懂的时候，Buterin已经⽤他4岁时收到的礼物——⼀台个⼈电脑撰写⾃⾏计算的程序了；另⼀⽅⾯则是碰上了难得⼀遇的好时机——区块链时代的到来！</p>
+<p>Vitalik Buterin，1994年出⽣于俄罗斯，5岁的时候，⽗母离婚，跟随⽗亲移民到了加拿⼤。他⾃⼩在数学上就有很⾼的天赋，在⼤部分⼈九九乘法表还没背全的时候，Buterin的三位数⼼算速度已经是同龄⼈的两倍。在⼩学三年级的时候，他便被安排进了“天才⼉童班”，学习数学、编程和经济学等科⽬。</p>
+<p>7岁的时候，Buterin创建了⼀个叫做”兔⼦百科全书“的复杂⽂档，这是⼀个由兔⼦组成的⼩世界，但世界⾥的规则符合⾮常严格的公式，⾥⾯全是数学，图表和计算。Buterin读五六年级的时候，很多⼈认为他是数学天才。12岁起，Buterin已经可以⽤程式语⾔C++撰写简单的游戏给⾃⼰玩了。</p>
+<p>这样⼀路成长下去，Buterin或许就成为⼀名优秀的程序员了，但事情往往却⼀波三折。在13岁到16岁的时候，Buterin沉迷于《魔兽世界》中，摇⾝⼀变成了⼀个⽹瘾少年，经常⼀玩游戏就是⼀整天。直到</p>
+<p>【<u><strong>有⼀次暴雪在版本更新中，取消了Buterin最喜爱的⾓⾊——术⼠的“⽣命虹吸”技能，使得Buterin悲痛欲绝，并多次发邮件和在官⽅论坛⾥联系了暴雪的⼯程师，要求他们还原这个技能，但是得到的回复都是出于游戏平衡才这么做的，不能恢复。</strong></u></p>
+<p><u><strong>Buterin对这种中⼼化组织主导⼀切的状况产⽣了不满。在互联⽹游戏⾥，最⼤弊端就是⼀切由开发商说了算，⽽玩家只能选择被动接受，或者离开。所以，他选择了放弃玩魔兽。</strong></u>】</p>
+<p>2011年，17岁的Buterin从他⽗亲那听到了⽐特币，⼀开始他和当时的⼈们⼀样，并不认为⽗亲兴奋提及的数字货币有任何实际价值。Buterin的⽗亲是⼀家区块链孵化器Blockgeeks Labs的<strong>联合创始⼈</strong>。这位送给他第⼀台电脑、买给他电脑科学书籍的⽗亲，也是⼀路以来⿎励他探索的启蒙导师和伙伴。<u>在他⽗亲宣扬下，Buterin<strong>开始认识到了⽐特币的真正意义所在，并被区块链技术的去中⼼化属性给深深地吸引了</strong>。</u></p>
+<p>基于对⽐特币及区块链技术的浓厚兴趣，Buterin开始在⽹络上撰写相关的⽂章，主要涉及到区块链技术以及潜在的社会影响，彼时的他还未满18岁。Buterin的⽂章很受欢迎，每篇帖⼦⼤概能得到5个⽐特币（时价4美元左右）的“打赏”。2011年9⽉，Buterin以联合创始⼈以及主要撰稿⼈的⾝份会同罗马尼亚程序员Mihai Alisie创建了“⽐特币杂志”，这是⼀份实体和在线的出版物，直到2015年被收购前，该杂志积累了⼤概150万名读者。</p>
+<p>Buterin19岁时，也就是2013年的时候，被加拿⼤滑铁卢⼤学（计算机专业世界排名第18位）录取，学习计算机科学。<u>但8个⽉后，Buterin便选择了和⽐尔盖茨和扎克伯格⼀样的道路——辍学</u>，毅然踏上了周游世界之路，与世界各地的区块链爱好者交流和互相学习，⽽他的⽗亲对此也是乐见其成。这段时间正值⽐特币第⼀个爆发期，短时间内1btc的价格从⼏⼗美元上涨到1000多美元，这为Buterin带来了⼈⽣的第⼀桶⾦。</p>
+<p>2013年年末，周游世界归来后的Buterin有了些新想法。当时的⽐特币爱好者正在全⼒以赴地为⽐特币增加更多的功能性，打造⽐特币2.0。但Buterin认为，建⽴⼀个全新的编程语⾔才是⽐特币的当务之急。<u>出于安全原因，⽐特币的开⼭⿐祖中本聪⽤了⼀种复杂的脚本语⾔编写了⽐特币协议，然⽽这种语⾔有意地限制了交易的复杂性，也导致了⽐特币⼀直没有开枝散叶，孵化出更多的应⽤。</u></p>
+<p>针对这种状况，<u>Buterin打算⽤⼀种<strong>通⽤的脚本语⾔</strong>，打造⼀款新的计算平台和新的加密货币，于是他很快就写下了⼀篇⽩⽪书，并在⽂中介绍了以太坊。19岁的Vitalik Buterin给他的好友们发了以太坊⽩⽪书。这款新的⽐特币将基于通⽤的编程语⾔，可以⽤来创建各种各样的应⽤，⽐如社交、交易、游戏……Buterin发给了15个⼈，这15个⼈⼜相继发给了他们的好友。⼀传⼗，⼗传百，Buterin的想法很快就在⽐特币社区⾥获得了⼀致的好评。</u></p>
+<p>和其他的加密货币⼀样，<u>Buterin决定⽤ICO的⽅式进⾏众筹</u>，⽤户可以⽤⽐特币来预购以太币。以太币的定价是2000个以太币 1个⽐特币，按照当时每个⽐特币600美元的价格，⼀个以太币是0.3美元。</p>
+<p>最终，这次ICO⼀共募集了31,000个⽐特币，即1,800万美元，这让它成为了加密货币历史上价值第⼆⾼的ICO。有了这笔钱，Buterin的团队很快在瑞⼠成⽴⼀家⾮盈利公司Ethereum Foundation。<u>Buterin也因为对⽐特币2.0的发展贡献，从⽽击败了Facebook创始⼈Mark Zuckerberg，获得2014年IT软件类世界技术奖。这个奖项表彰了V神设计发展以太坊（Ethereum）的突出成就。</u></p>
+<p>2015年6⽉，第⼀款以太坊发布，取名Frontier，所有承诺给早期投资者的以太币被顺利地交付，开发者们也开始在以太坊上编织他们的梦想。两年间，以太坊的出现激活了区块链背后的巨⼤潜⼒：以太币的价格在2017全年翻了85倍；由以太坊奠基的ICO在2017年成为最⽕的资⾦众筹⽅式，全球通过ICO募集了超过40亿美元；</p>
+<p><u>2017年，全球电⼦货币的市场总值从年初的180亿美元暴涨到5600亿美元。</u></p>
+</blockquote>
+<p>[^ICO]: Initial Coin Offering，首次币发行，源自股票市场的首次公开发行（IPO）概念，是区块链项目首次发行代币，募集比特币、以太坊等通用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E5%AD%97%E8%B4%A7%E5%B8%81/8159530">数字货币</a>的行为。</p>
+<h3 id="💎时间节点——区块链的跨时代"><a href="#💎时间节点——区块链的跨时代" class="headerlink" title="💎时间节点——区块链的跨时代"></a>💎<strong>时间节点——区块链的跨时代</strong></h3><ol>
+<li><p><em><strong>区块链1.0时代（2009-2013）：</strong></em></p>
+<p>⭐标志事件：署名为“中本聪”的匿名人士发表论文《比特币：对等网络电子现金系统》，标志着区块链的世界打开大门。</p>
+<p>⭐阶段特点：该阶段主要关注数字货币的回报率，而非其应用价值。</p>
+</li>
+<li><p><em><strong>区块链2.0时代（2014-2017）：</strong></em></p>
+<p>⭐标志事件：2013年11月，V神发布了以太坊白皮书，区块链的特性形成了信任基础。</p>
+<p>⭐阶段特点：为智能合约提供了可信任的执行环境，扩大了对金融领域更广泛的场景和流程进行优化的应用，使得所有金融交易都可以被改造成在区块链上使用。以太坊与比特币的最大区别，是其支持脚本语言应用开发，可以实现智能合约。</p>
+</li>
+<li><p><em><strong>区块链3.0时代（2018-至今）：</strong></em></p>
+<p>⭐标志事件：2017年底起，稳定币USDT的交易开始显著放量，2017年12月，借贷类DeFi项目MakerDAO上线，其中也用到了稳定币的技术。</p>
+<p>⭐阶段特点：3.0时代是超越货币和金融范围的泛行业去中心化应用，特别是在政府、医疗、科学、文化和艺术等领域的应用。</p>
+</li>
+</ol>
+<h3 id="🌙跨时代总结"><a href="#🌙跨时代总结" class="headerlink" title="🌙跨时代总结"></a><strong>🌙跨时代总结</strong></h3><p>​        <strong>实际上不难看出，区块链的跨时代实际上就是三种数字货币的诞生与爆发：1.0是最早的比特币（BTC）创世，开辟区块链时代，为天才少年V神的横空出世奠定了时代基础；2.0是以太坊（Ethereum）的信任机制建立，区块链的无限可能性在此萌芽，为USDT的交易奠定了信任基础；3.0则是泰达币（USDT）交易的放量增长，为后续区块链技术的衍生提供了价值基础；因此在当今所有交易所我们都可以看到，只有这三种数字货币一直是首页大屏的“不动明王”，并且价值排序是呈阶梯型递减的，在我看来，未来也难以撼动他们的地位。我们是不是可以推断：能够越早占据时间长河的前瞻位置，也就能越早地掌握经久不衰的财富密码。因此，在持久学习的道路上，掌握技术能够让你站稳脚跟，而回望历史则是站在时代巨人的肩上去目睹苦难和机遇并存，去仰望星空，开拓视野，进而去探索宇宙；这，就是为什么我要去介绍区块链发展历史的真正缘由。</strong></p>
+<h3 id="🌙畅想未来"><a href="#🌙畅想未来" class="headerlink" title="🌙畅想未来"></a><strong>🌙畅想未来</strong></h3><p><strong>畅想一下区块链4.0时代的到来是因为什么？</strong></p>
+<p>[^部分内容来自于]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/mrRqAEr7ci9s2v0/article/details/113285330">科普 | 比特币创始人中本聪是谁？</a></p>
+<h2 id="4-【挖矿】到底是什么——区块链的核心技术"><a href="#4-【挖矿】到底是什么——区块链的核心技术" class="headerlink" title="4.【挖矿】到底是什么——区块链的核心技术"></a>4.【挖矿】到底是什么——区块链的核心技术</h2><h3 id="💎挖矿，到底是什么？（引言）"><a href="#💎挖矿，到底是什么？（引言）" class="headerlink" title="💎挖矿，到底是什么？（引言）"></a>💎挖矿，到底是什么？（引言）</h3><p><strong>简短概括：</strong>挖矿——就是通过贡献计算机的计算力来换取虚拟货币的奖励。这么说确实略显抽象，别着急，咱先走为上。</p>
+<p>提起挖矿，大家最近是否注意到一个现象：<strong>电脑显卡的价格暴涨，</strong>迎来了十几年来的一次价格高峰；俗话说，物以稀为贵，供求关系不平衡才会如此，那么谁是罪魁祸首呢？毫无疑问——矿机！挖矿需要矿机来作为硬件基础，而矿机的核心性能取决于显卡，矿工们为了更好地争夺虚拟货币的奖励，就不得不买算力更加强大的矿机，也就意味着更好的显卡，消耗更多的电费。这些，就是在挖矿中最重要的<strong>物理基础。</strong></p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/15.webp" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p>那么，挖矿的物理基础有了，挖矿的规则是什么来决定的呢？答案就是PoW工作量证明机制，请随我来~</p>
+<h3 id="💎共识机制——区块链的信任基础"><a href="#💎共识机制——区块链的信任基础" class="headerlink" title="💎共识机制——区块链的信任基础"></a>💎共识机制——区块链的信任基础</h3><h4 id="A-PoW（Proof-of-Work）工作量证明机制"><a href="#A-PoW（Proof-of-Work）工作量证明机制" class="headerlink" title="A. PoW（Proof of Work）工作量证明机制"></a>A. PoW（Proof of Work）工作量证明机制</h4><p>上面的例子并不是题外话，相信聪明的你早已窥见了端倪，这实际上就是PoW机制的过程简述。</p>
+<p>📕<em><strong>PoW：</strong></em> 也称挖矿，它是需要完成一定的工作量（Hash计算）来证明获取记账权。它是最早应用在区块链技术上的共识机制，也是区块链应用领域使用最为广泛、最为成熟的共识机制。比特币区块链系统就是使用PoW共识机制。</p>
+<p><strong>📕PoW算法在区块链实现过程：</strong></p>
+<ol>
+<li><p>先定义一个固定的256位长度初始数，比如：长度为256位的 0000…0001 （<strong>相当于32字节，64字符，一字节为8位，一字符为4位</strong>）</p>
+</li>
+<li><p>设置难度系数值，比如：如果难度系数定义为前面4个0，即16位长度（0000 0000 0000 0001 &#x3D; 4个字符&#x3D; 2个字节）</p>
+</li>
+<li><p>按照难度系数值进行<strong>移位操作</strong>，将Hash工作量值扩大， 向左移 （256-难度系数N位）比如： 将初始数 0000…..0001 向左移（256-16位）得到： 0000 0000 0000 0001 0000 …0000.</p>
+</li>
+<li><p>将随机数Nonce递增加1再加上区块头（Block Header）Hash值拼接，然后进行SHA256 Hash运算。</p>
+</li>
+<li><p>将计算结果值与当前难度系数目标值做对比，<strong>如果当前计算值大于难度系数条件值，即继续递增Nonce值再进行下一次的SHA256 Hash运算</strong>，直到计算出的结果Hash值少于目标值，则才认为解题成功，此次的工作量证明完成并获得记账权，然后进行对交易区块进行打包确认并广播给全节点。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+</li>
+</ol>
+<p>[^Nonce]: Nonce是Number once的缩写，在密码学中Nonce是一个只被使用一次的任意或非重复的随机数值。</p>
+<h5 id="📕简单理解五步曲："><a href="#📕简单理解五步曲：" class="headerlink" title="📕简单理解五步曲："></a>📕简单理解五步曲：</h5><p>Looping （循环）{</p>
+<ol>
+<li>准备初始数据</li>
+<li>设置难度系数</li>
+<li>通过SHA256 对数据进行Hash</li>
+<li>将Hash转成大整数（big.Int）</li>
+<li>将大整数与难度系数目标值比较。</li>
+</ol>
+<p>}</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p>📕<em><strong>公式表达：</strong></em><br>$$<br>SHA256 ( Nonce + blockheader ） &lt;  目标值的难度系数<br>$$<br>📕<em><strong>优点：</strong></em></p>
+<ol>
+<li>完全去中心化；</li>
+<li>节点自由进出，有利于节点网络扩大；</li>
+<li>用户的参与度与信任度高，对于用户来说实现真正的公平，公正竞争。</li>
+</ol>
+<p>📕<em><strong>缺点：</strong></em></p>
+<ol>
+<li>最大缺点就是造成的资源浪费，争夺记账权需要不停地循环计算哈希值；</li>
+<li>达成共识的周期过长，<strong>导致产生新区块效率比较低</strong>，大概每10分钟才产生一个新区块，这不适于商业应用。</li>
+</ol>
+<h4 id="B-PoS机制（Proof-of-Stake）权益证明机制"><a href="#B-PoS机制（Proof-of-Stake）权益证明机制" class="headerlink" title="B. PoS机制（Proof of  Stake）权益证明机制"></a>B. PoS机制（Proof of  Stake）权益证明机制</h4><p><a href="%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E4%BD%9C%E4%B8%BA%E4%B8%80%E7%A7%8D**%E6%96%B0%E5%9E%8B%E5%88%9B%E9%80%A0%E4%BF%A1%E4%BB%BB**%E6%8A%80%E6%9C%AF%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BA%86%E7%82%B9%E5%AF%B9%E7%82%B9%EF%BC%88P2P%EF%BC%89%E7%9A%84%E4%BB%B7%E5%80%BC%E4%BC%A0%E9%80%92%EF%BC%8C%E5%8F%97%E5%88%B0%E4%BA%86%E5%BE%88%E5%A4%9A%E8%A1%8C%E4%B8%9A%E7%9A%84%E8%BF%BD%E6%8D%A7%EF%BC%8C%E9%82%A3%E4%B9%88%E5%B0%B1%E7%9B%AE%E5%89%8D%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8F%91%E5%B1%95%E6%9D%A5%E7%9C%8B%EF%BC%8C%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8F%AF%E4%BB%A5%E5%BA%94%E7%94%A8%E7%9A%84%E8%A1%8C%E4%B8%9A%E6%9C%89%E5%93%AA%E4%BA%9B%E5%91%A2%EF%BC%9F">^前言</a>: 在2012年，由加密货币点点币的创始人Sunny King 为了解决PoW中资源浪费的缺点而提出的新的共识概念，他在基于比特币PoW的框架基础上实现了新的共识机制PoS，并最初被应用在点点币区块链系统上。</p>
+<h5 id="📕工作原理："><a href="#📕工作原理：" class="headerlink" title="📕工作原理："></a>📕<em><strong>工作原理：</strong></em></h5><p>PoW是通过计算工作量来获得记账权，而在PoS中即转变为资本证明，它根据每个节点所拥有代币数量的比例和持币时间来通过<strong>算法按等比例地降低节点的挖矿难度</strong>，<strong>从而提高了寻找满足难度随机数的效率，缩短达成共识所需的时间</strong>，因此拥有的币的时间越久和数量越多，它获得的记账的概率就越大。类似于企业的股东制，占有股份多的，它拥有的决策权就越重。</p>
+<p>PoS仍然需要网络中的节点进行PoW挖矿运算，因此，PoS机制并没有从根本上解决PoW机制难以应用于商业领域的问题。</p>
+<p>📕<em><strong>公式表达：</strong></em><br>$$<br>SHA256 ( Nonce + blockheader ） &lt; 目标值的难度系数&#x2F;综合（拥有代币数量的比例和持币时间）<br>$$</p>
+<p>[部分内容取自]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/to_cm/article/details/82765861">https://blog.csdn.net/to_cm/article/details/82765861</a>	“区块链共识机制”<br>[部分内容取自]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/to_cm/article/details/82828144">https://blog.csdn.net/to_cm/article/details/82828144</a>	“深入理解PoW共识”</p>
+<p>📕<em><strong>优点</strong>：</em></p>
+<ol>
+<li>大幅缩减了参与验证和记账的数量；</li>
+<li>提高交易吞吐量；</li>
+<li>减少交易验证达成共识时间。</li>
+</ol>
+<p>📕<em><strong>缺点</strong>：</em></p>
+<ol>
+<li>记账权被掌握在少数被指定的节点上。</li>
+<li>参与度不够高，缺乏一定的代表性，显失公平。</li>
+</ol>
+<h3 id="💎密码学——区块链构筑的底层（概览）"><a href="#💎密码学——区块链构筑的底层（概览）" class="headerlink" title="💎密码学——区块链构筑的底层（概览）"></a>💎密码学——区块链构筑的底层（概览）</h3><h4 id="A-Hash算法"><a href="#A-Hash算法" class="headerlink" title="A.Hash算法"></a>A.Hash算法</h4><p>能任意长度的二进制值映射为较短的固定长度的二进制值（Hash值），并且不同的明文很难映射为相同的Hash值。</p>
+<p>主要有<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/MD5">MD5</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SHA-2">SHA256</a>。其主要特点是<strong>正向快速，逆向困难，输入敏感，冲突避免，</strong>这些特性能够在区块链网络中发挥巨大的价值。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/true/16.webp" srcset="/img/loading.gif" lazyload alt="16"></p>
+<h4 id="B-对称和非对称加密"><a href="#B-对称和非对称加密" class="headerlink" title="B.对称和非对称加密"></a>B.对称和非对称加密</h4><p>对称加密：就是采用这种加密方法的双方使用方式用<strong>同样的密钥进行加密和解密</strong>。主要算法有<u>DES、AES、Blowfish、IDEA、RC5、RC6</u>等。</p>
+<p>非对称加密：指加密和解密使用<strong>不同密钥的加密算法</strong>，也称为公私钥加密。主要算法有<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/RSA">RSA</a>、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Elgamal">Elgamal</a>、背包算法、Rabin、D-H、<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/ECC">ECC</a><strong>（椭圆曲线加密算法）</strong>。</p>
+<h4 id="C-PKI体系"><a href="#C-PKI体系" class="headerlink" title="C.PKI体系"></a>C.PKI体系</h4><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%AC%E9%92%A5%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/10881894?fromtitle=PKI&fromid=212376&fr=aladdin">PKI</a>是公钥基础设施，我们利用此在不安全的网络中构建了安全服务，从而让互不相识的人们可以安全的通信。</p>
+<p><img src="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE%5Ctrue%5C17.webp" srcset="/img/loading.gif" lazyload alt="17"></p>
+<h2 id="5-辩证思维看待区块链，为什么要去学区块链技术？"><a href="#5-辩证思维看待区块链，为什么要去学区块链技术？" class="headerlink" title="5. 辩证思维看待区块链，为什么要去学区块链技术？"></a>5. 辩证思维看待区块链，为什么要去学区块链技术？</h2><blockquote>
+<p>个人理解与看法，将持续更新</p>
+</blockquote>
+<p>​        每一次革新技术的诞生，都代表着这个世界需要做出一些改变——区块链的诞生，是一代年轻人对于这个时代的反抗与革命。电影《让子弹飞》中张麻子上任鹅城的那句话我记忆犹深<u><strong>“公平，公平，还tm的是公平！”</strong></u>。是的，越来越多的年轻人经历不公平，越来越多的年轻人开始追求公平，反思不公平的缘由。这世界上绝大部分财富都掌握在前百分之一的富人手中，而留给新一代年轻人的机会越来越少，可能性也越来越小。在不断自我审问的过程中，可以发现，<u>追求公平绝不仅仅去依靠双手劳动，更需要靠智慧和选择</u>。我很认同这样一句话：“苦难从来不值得被歌颂，如果不是迫不得已，谁会愿意遭受苦难？”是的，在【跨时代总结】中我提到，苦难是和机遇并存的，因此学习和思考，永无止境。</p>
+<h3 id="💎怎能无动于衷？"><a href="#💎怎能无动于衷？" class="headerlink" title="💎怎能无动于衷？"></a>💎怎能无动于衷？</h3><p>​         区块链，毫无疑问将成为未来的趋势，并且这门技术的应用性，完完全全的符合【社会主义核心价值观】。<strong>2022，正是区块链的元年。</strong>正如十来年前的互联网革命一般，那时候学习java，了解java的人并不多，但正是这一波人，窥见了时代趋势，抓住了互联网的巨浪，扬帆起航。而区块链，正隐藏着如此无限的可能性，前瞻时代的浪潮，做好沉淀和学习的提前准备，当巨浪来临，方能**<u>直挂云帆济沧海！</u>**</p>
+<h3 id="💎不是人人都能成为V神"><a href="#💎不是人人都能成为V神" class="headerlink" title="💎不是人人都能成为V神"></a>💎不是人人都能成为V神</h3><p>​        写在最后，也是希望大家能够保持<u>理性思考和时常自省</u>的能力。人人都想成为V神，但他的成功是在天时地利人和的条件下，百年才一遇的个例。妄想平步青云，对于普通人来说未免有些难。区块链技术仍处在初期阶段，发展还不够成熟，道路上还存在着很多阻力。可以看到，以区块链技术为基础的币圈不乏投资失败的普通人，而一夜暴富也仅是个例，究其原因，是他们陷入了富人精心布局的游戏之中，**<u>因为比技术更加复杂的，是人心</u><strong>。但在这个圈子里，技术高于一切，智能合约的出现，象征着</strong>代码即法律<strong>的不可篡改。而掌握技术，就是在未来掌握着财富！</strong><u>“路漫漫其修远兮，吾将上下而求索”</u>**，持久学习和思考，不仅仅是为了未来拥有更多的自由，也为了公正的天秤不再倾斜。</p>
+<h2 id="🚀一些必要的名词解释"><a href="#🚀一些必要的名词解释" class="headerlink" title="🚀一些必要的名词解释"></a>🚀一些必要的名词解释</h2><p>[^DeFi]: 即“去中心化金融<em>（Decentralized Finance）</em>”，也被称为“开放式金融” 。是以<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%AF%94%E7%89%B9%E5%B8%81/4143690">比特币</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BB%A5%E5%A4%AA%E5%B8%81/20857686">以太币</a>为代表的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8A%A0%E5%AF%86%E8%B4%A7%E5%B8%81/22415288">加密货币</a>，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8C%BA%E5%9D%97%E9%93%BE/13465666">区块链</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/19770937">智能合约</a>结合的产物</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从入门到搞懂区块链</div>
+      <div>http://example.com/2022/08/30/从入门到搞懂区块链/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月30日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/30/Hexo%E6%93%8D%E4%BD%9C%E7%AC%94%E8%AE%B0/" title="Hexo操作笔记">
+                        <span class="hidden-mobile">Hexo操作笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

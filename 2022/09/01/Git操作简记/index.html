@@ -16,22 +16,22 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="">
   
-    <meta name="description" content="uwsgi1$ &#x2F;etc&#x2F;init.d&#x2F;bt default #获取服务器默认密码      防火墙12345$ &#x2F;etc&#x2F;init.d&#x2F;iptables stop #关闭防火墙$ iptables -nL  #查看iptables详细策略信息$ iptables -A INPUT -p tcp --dport 8080 -j ACCEPT #放通入方向的8080端口$ iptables -A O">
+    <meta name="description" content="ssh配置123456#使用以下命令生成 SSH Keyssh-keygen -t rsa -C &quot;youremail@example.com&quot;#查看生成的密钥cat ~&#x2F;.ssh&#x2F;id_rsa.pub#验证是否成功ssh -T git@github.com  上传后打不开文件夹（白箭头） 这是因为其他工程下有.git文件，Github视其为子系统模块。 删除文件夹下的.git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos操作简记(宝塔)">
-<meta property="og:url" content="http://nangbowan.github.io/2022/09/01/Centos%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0(%E5%AE%9D%E5%A1%94)/index.html">
+<meta property="og:title" content="git-bash操作简记">
+<meta property="og:url" content="http://nangbowan.github.io/2022/09/01/Git%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="uwsgi1$ &#x2F;etc&#x2F;init.d&#x2F;bt default #获取服务器默认密码      防火墙12345$ &#x2F;etc&#x2F;init.d&#x2F;iptables stop #关闭防火墙$ iptables -nL  #查看iptables详细策略信息$ iptables -A INPUT -p tcp --dport 8080 -j ACCEPT #放通入方向的8080端口$ iptables -A O">
+<meta property="og:description" content="ssh配置123456#使用以下命令生成 SSH Keyssh-keygen -t rsa -C &quot;youremail@example.com&quot;#查看生成的密钥cat ~&#x2F;.ssh&#x2F;id_rsa.pub#验证是否成功ssh -T git@github.com  上传后打不开文件夹（白箭头） 这是因为其他工程下有.git文件，Github视其为子系统模块。 删除文件夹下的.git">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-01T01:31:40.000Z">
-<meta property="article:modified_time" content="2022-09-01T06:01:49.072Z">
+<meta property="article:published_time" content="2022-09-01T06:31:40.000Z">
+<meta property="article:modified_time" content="2022-09-01T06:01:30.256Z">
 <meta property="article:author" content="Science_Jun">
-<meta property="article:tag" content="Linux基操">
+<meta property="article:tag" content="Git-Bash基操">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Centos操作简记(宝塔) - 77Brother</title>
+  <title>git-bash操作简记 - 77Brother</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -233,7 +233,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Centos操作简记(宝塔)"></span>
+            <span id="subtitle" data-typed-text="git-bash操作简记"></span>
           
         </div>
 
@@ -244,8 +244,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-01 09:31" pubdate>
-          2022年9月1日 上午
+        <time datetime="2022-09-01 14:31" pubdate>
+          2022年9月1日 下午
         </time>
       </span>
     
@@ -256,7 +256,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          235 字
+          2k 字
         
       </span>
     
@@ -267,7 +267,7 @@
         
         
         
-          2 分钟
+          17 分钟
         
       </span>
     
@@ -305,18 +305,44 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Centos操作简记(宝塔)</h1>
+            <h1 style="display: none">git-bash操作简记</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="uwsgi"><a href="#uwsgi" class="headerlink" title="uwsgi"></a>uwsgi</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ /etc/init.d/bt default <span class="hljs-comment">#获取服务器默认密码</span><br></code></pre></td></tr></table></figure>
+                <h2 id="ssh配置"><a href="#ssh配置" class="headerlink" title="ssh配置"></a>ssh配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">使用以下命令生成 SSH Key</span><br>ssh-keygen -t rsa -C &quot;youremail@example.com&quot;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看生成的密钥</span><br>cat ~/.ssh/id_rsa.pub<br><span class="hljs-meta prompt_">#</span><span class="language-bash">验证是否成功</span><br>ssh -T git@github.com<br></code></pre></td></tr></table></figure>
+
+<h2 id="上传后打不开文件夹（白箭头）"><a href="#上传后打不开文件夹（白箭头）" class="headerlink" title="上传后打不开文件夹（白箭头）"></a>上传后打不开文件夹（白箭头）</h2><blockquote>
+<p>这是因为其他工程下有.git文件，Github视其为子系统模块。</p>
+<p>删除文件夹下的.git文件即可</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">git rm --cached &lt;File Name&gt;<br>git add . <br>git commit -m &quot;delete .git&quot;<br>git push<br></code></pre></td></tr></table></figure>
 
 
 
+<h2 id="1-git-add"><a href="#1-git-add" class="headerlink" title="1. git add"></a>1. git add</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">添加一个或多个文件到暂存区</span><br>git add [file1] [file2] ...<br><span class="hljs-meta prompt_">#</span><span class="language-bash">添加指定目录到暂存区</span><br>git add [dir]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">添加当前目录下的所有文件到暂存区</span><br>git add .<br></code></pre></td></tr></table></figure>
 
+<h2 id="2-git-status"><a href="#2-git-status" class="headerlink" title="2. git status"></a>2. git status</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git status 命令用于查看在你上次提交之后是否有对文件进行再次修改</span><br>git status<br><span class="hljs-meta prompt_">#</span><span class="language-bash">使用 -s 参数来获得简短的输出结果</span><br>git status -s<br></code></pre></td></tr></table></figure>
 
-<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ /etc/init.d/iptables stop <span class="hljs-comment">#关闭防火墙</span><br>$ iptables -nL  <span class="hljs-comment">#查看iptables详细策略信息</span><br>$ iptables -A INPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通入方向的8080端口</span><br>$ iptables -A OUTPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通出方向的8080端口</span><br>$ iptables  -F： <span class="hljs-comment">#清除所有制订的规则</span><br></code></pre></td></tr></table></figure>
+<h2 id="3-git-diff"><a href="#3-git-diff" class="headerlink" title="3. git diff"></a>3. git diff</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git diff 命令比较文件的不同，即比较文件在暂存区和工作区的差异。</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">git diff 命令显示已写入暂存区和已经被修改但尚未写入暂存区文件的区别。</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">尚未缓存的改动</span><br>git diff [file]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看已缓存的改动</span><br>git diff --cached [file]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看已缓存的与未缓存的所有改动</span><br>git diff HEAD<br><span class="hljs-meta prompt_">#</span><span class="language-bash">显示摘要而非整个diff</span><br>git diff --stat<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-git-commit"><a href="#4-git-commit" class="headerlink" title="4. git commit"></a>4. git commit</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git commit 命令将暂存区内容添加到本地仓库中。</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">提交暂存区到本地仓库中,附加备注信息</span><br>git commit -m [message]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">不需要执行 git add 命令，直接来提交</span><br>git commit -a<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-设置提交代码时的用户信息"><a href="#5-设置提交代码时的用户信息" class="headerlink" title="5. 设置提交代码时的用户信息"></a>5. 设置提交代码时的用户信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git config --global user.name [name]<br>git config --global user.email [email]<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-git-reset"><a href="#6-git-reset" class="headerlink" title="6. git reset"></a>6. git reset</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git reset 命令用于回退版本，可以指定退回某一次提交的版本。</span><br>git reset [--soft | --mixed | --hard] [HEAD]<br></code></pre></td></tr></table></figure>
+
+<h2 id="7-git-rm"><a href="#7-git-rm" class="headerlink" title="7. git rm"></a>7. git rm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">将文件从暂存区和工作区中删除</span><br>git rm &lt;file&gt;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">强行从暂存区和工作区中删除修改后的 runoob.txt 文件：</span><br>git rm -f runoob.txt <br><span class="hljs-meta prompt_">#</span><span class="language-bash">把文件从暂存区域移除，但仍然希望保留在当前工作目录中，换句话说，仅是从跟踪清单中删除，使用 --cached 选项即可</span><br>git rm --cached &lt;file&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="8-git-mv"><a href="#8-git-mv" class="headerlink" title="8. git mv"></a>8. git mv</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git <span class="hljs-built_in">mv</span> 命令用于移动或重命名一个文件、目录或软连接</span><br>git mv [file] [newfile]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">如果新文件名已经存在，但还是要重命名它，可以使用 -f 参数</span><br>git mv -f [file] [newfile]<br></code></pre></td></tr></table></figure>
+
+<h2 id="9-git-log-查看历史提交记录"><a href="#9-git-log-查看历史提交记录" class="headerlink" title="9. git log - 查看历史提交记录"></a>9. <strong>git log</strong> - 查看历史提交记录</h2><h2 id="10-git-remote"><a href="#10-git-remote" class="headerlink" title="10. git remote"></a>10. git remote</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">显示所有远程仓库</span><br>git remote -v<br><span class="hljs-meta prompt_">#</span><span class="language-bash">添加远程版本库</span><br>git remote add [给他取名] [url]<br><span class="hljs-meta prompt_">#</span><span class="language-bash">例子：提交到 Github</span><br>git remote add origin git@github.com:tianqixin/runoob-git-test.git<br>git push -u origin<br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除远程仓库</span><br>git remote rm name  <br><span class="hljs-meta prompt_"># </span><span class="language-bash">修改仓库名</span><br>git remote rename old_name new_name <br></code></pre></td></tr></table></figure>
+
+<h2 id="11-git-fetch"><a href="#11-git-fetch" class="headerlink" title="11. git fetch"></a>11. git fetch</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">以上命令将服务器上的任何更新（假设有人这时候推送到服务器了）合并到你的当前分支。</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">然后我们在本地更新修改</span><br>git fetch origin<br><span class="hljs-meta prompt_">#</span><span class="language-bash">以上信息<span class="hljs-string">&quot;0205aab..febd8ed main -&gt; origin/main&quot;</span> 说明 main 分支已被更新，我们可以使用以下命令将更新同步到本地：</span><br>git merge origin/main<br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看 README.md 文件内容：</span><br>cat README.md <br></code></pre></td></tr></table></figure>
+
+<h2 id="12-git-pull"><a href="#12-git-pull" class="headerlink" title="12. git pull"></a>12. git pull</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">git pull 命令用于从远程获取代码并合并本地的版本。</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">git pull 其实就是 git fetch 和git merge FETCH_HEAD的简写</span><br><br>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">例子</span><br>git pull origin main<br></code></pre></td></tr></table></figure>
+
+<h2 id="13-git-push"><a href="#13-git-push" class="headerlink" title="13. git push"></a>13. git push</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">删除主机的分支可以使用 --delete 参数，以下命令表示删除origin主机的master分支</span><br>git push origin --delete master<br><span class="hljs-meta prompt_">#</span><span class="language-bash">如果本地版本与远程版本有差异，但又要强制推送可以使用 --force 参数</span><br>git push --force origin master<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -351,7 +377,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux%E5%9F%BA%E6%93%8D/">#Linux基操</a>
+        <a href="/tags/Git-Bash%E5%9F%BA%E6%93%8D/">#Git-Bash基操</a>
       
     </div>
   
@@ -363,8 +389,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Centos操作简记(宝塔)</div>
-      <div>http://nangbowan.github.io/2022/09/01/Centos操作简记(宝塔)/</div>
+      <div>git-bash操作简记</div>
+      <div>http://nangbowan.github.io/2022/09/01/Git操作简记/</div>
     </div>
     <div class="license-meta">
       
@@ -406,9 +432,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/01/Part1.%20Uniswap%20V2%20Start/" title="Part1. Uniswap V2 Start">
+                      <a href="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/" title="Merkle树——实现NFT白名单">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Part1. Uniswap V2 Start</span>
+                        <span class="hidden-mobile">Merkle树——实现NFT白名单</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -416,8 +442,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/30/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%90%9E%E6%87%82%E5%8C%BA%E5%9D%97%E9%93%BE/" title="从入门到搞懂区块链">
-                        <span class="hidden-mobile">从入门到搞懂区块链</span>
+                      <a href="/2022/09/01/Part1.%20Uniswap%20V2%20Start/" title="Part1. Uniswap V2 Start">
+                        <span class="hidden-mobile">Part1. Uniswap V2 Start</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

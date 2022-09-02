@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#708090">
+  <meta name="author" content="Science_Jun">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在我们今天所知道和喜爱的区块链出现之前，默克尔树一直是密码学和计算机科学领域的一个方面。如今，我们开始慢慢看到它们在链上更频繁地被用于数据验证的目的。  1. 什么是默克尔树？默克尔树是一种树状结构，树上的每个节点都由一个值表示，这个值是一些加密哈希函数的结果。哈希函数是单向的，&#x3D;&#x3D;从一个输入产生一个输出很容易&#x3D;&#x3D;，&#x3D;&#x3D;但从一个输出确定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Merkle树——实现NFT白名单">
+<meta property="og:url" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/index.html">
+<meta property="og:site_name" content="77Brother">
+<meta property="og:description" content="在我们今天所知道和喜爱的区块链出现之前，默克尔树一直是密码学和计算机科学领域的一个方面。如今，我们开始慢慢看到它们在链上更频繁地被用于数据验证的目的。  1. 什么是默克尔树？默克尔树是一种树状结构，树上的每个节点都由一个值表示，这个值是一些加密哈希函数的结果。哈希函数是单向的，&#x3D;&#x3D;从一个输入产生一个输出很容易&#x3D;&#x3D;，&#x3D;&#x3D;但从一个输出确定">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C1.webp">
+<meta property="og:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C2.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C3.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C4.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C5.png">
+<meta property="article:published_time" content="2022-09-02T00:42:07.000Z">
+<meta property="article:modified_time" content="2022-09-02T03:24:48.667Z">
+<meta property="article:author" content="Science_Jun">
+<meta property="article:tag" content="Merkle树，数据验证">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://nangbowan.github.io/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C1.webp">
+  
+  
+  
+  <title>Merkle树——实现NFT白名单 - 77Brother</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nangbowan.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"u6d39Kb2WhNShN3CQNE7qH6o-9Nh9j0Va","app_key":"ruyVye73kB7g6b2KZe0bFvsf","server_url":"https://u6d39kb2.lc-cn-e1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>77Brotherの技术小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-map"></i>
+                时间线
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文章
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/">
+                    <i class="iconfont icon-category-fill"></i>
+                    分类
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    标签
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">
+                <i class="iconfont icon-plan"></i>
+                项目
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                作者
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Merkle树——实现NFT白名单"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-02 08:42" pubdate>
+          2022年9月2日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Merkle树——实现NFT白名单</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>在我们今天所知道和喜爱的区块链出现之前，默克尔树一直是密码学和计算机科学领域的一个方面。如今，我们开始慢慢看到它们在链上更频繁地<u>被用于数据验证</u>的目的。</p>
+</blockquote>
+<h2 id="1-什么是默克尔树？"><a href="#1-什么是默克尔树？" class="headerlink" title="1. 什么是默克尔树？"></a>1. 什么是默克尔树？</h2><p>默克尔树是一种树状结构，树上的每个节点都由一个值表示，这个值是一些加密哈希函数的结果。哈希函数是单向的，&#x3D;&#x3D;从一个输入产生一个输出很容易&#x3D;&#x3D;，&#x3D;&#x3D;但从一个输出确定一个输入在计算上是不可行的&#x3D;&#x3D;。默克尔树有3种类型的节点，如下所示：</p>
+<ol>
+<li><strong>叶子节点</strong> - 叶子节点位于树的最底部，它们的值是<strong>原始数据</strong>的哈希值。一棵树上有多少个叶子节点，就有多少个需要哈希的原始数据。例如，如果有7个数据需要被哈希，就会有7个叶子节点。</li>
+<li><strong>父节点</strong> - 父节点可以位于树的不同层次，这取决于整个树的大小，父节点总是位于叶节点之上。父节点的值是由它下面的节点的哈希值决定的，通常从左到右开始。由于不同的输入总是会产生不同的哈希值，不考虑哈希值的碰撞，&#x3D;&#x3D;节点哈希值的连接顺序很重要&#x3D;&#x3D;。</li>
+<li><strong>根节点</strong> - 根节点位于树的顶端，由位于它下面的两个父节点的哈希值连接而成，同样从左到右开始。任何默克尔树上都只有一个根节点，根节点拥有根哈希值。</li>
+</ol>
+<h2 id="2-默克尔树结构"><a href="#2-默克尔树结构" class="headerlink" title="2. 默克尔树结构"></a>2. 默克尔树结构</h2><p><img src="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C1.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="简化它"><a href="#简化它" class="headerlink" title="简化它"></a>简化它</h3><p><img src="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C2.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-为什么需要默克尔树？"><a href="#3-为什么需要默克尔树？" class="headerlink" title="3. 为什么需要默克尔树？"></a>3. 为什么需要默克尔树？</h2><h3 id="3-1-背景"><a href="#3-1-背景" class="headerlink" title="3.1 背景"></a>3.1 背景</h3><p>在NFT（ERC-721）的背景下使用Merkle树，白名单为选定的参与者群体保留一定数量的代币。</p>
+<p>白名单地址将会预先计算成Merkle对象。</p>
+<p>在这种情况下，可以让一个叶子节点代表我们白名单中的一个钱包地址的哈希值。</p>
+<h3 id="3-2-痛点"><a href="#3-2-痛点" class="headerlink" title="3.2 痛点"></a>3.2 痛点</h3><p>前面提到过哈希函数是单向的——&#x3D;&#x3D;从一个输入产生一个输出很容易&#x3D;&#x3D;，&#x3D;&#x3D;但从一个输出确定一个输入在计算上是不可行的&#x3D;&#x3D;，并且连接顺序也将决定结果。</p>
+<p><strong>Example</strong>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">hash（hash1,hash2） != <span class="hljs-title function_">hash</span>(hash2,hash1)<br></code></pre></td></tr></table></figure>
+
+<p>在NFT白名单实例中，将会使用哈希值进行数据安全验证。</p>
+<p>因此在这种情况下，直系验证是非常困难的，需要非常大的计算量和资源。</p>
+<h3 id="传统验证"><a href="#传统验证" class="headerlink" title="传统验证"></a>传统验证</h3><blockquote>
+<p>验证根哈希值是否相同，这看似很简单，但问题就在于，当你去验证一个地址时，到底将该地址哈希与哪个叶子哈希值进行替换并验证？这是很难计算得知的。</p>
+</blockquote>
+<p><img src="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C3.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>根哈希验证的另一个难点（了解即可）</strong></p>
+<p><img src="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C4.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3-3-如何解决——取得默克尔证明"><a href="#3-3-如何解决——取得默克尔证明" class="headerlink" title="3.3 如何解决——取得默克尔证明"></a>3.3 如何解决——取得默克尔证明</h3><p>Merkle树妙处在于它<strong>根本不需要与根哈希</strong>，<strong>父哈希等等进行等量校对</strong>。</p>
+<p>如果试图验证一个叶子节点属于我们的树，&#x3D;&#x3D;只需要知道直接相邻的叶子节点哈希值&#x3D;&#x3D;(如果有的话)，&#x3D;&#x3D;以及叶子节点正上方相邻的父节点哈希值&#x3D;&#x3D;就可以了。</p>
+<p>如果这个Merkle树有四层，五层甚至一百层，那么返回的哈希值数量将会相应增长！</p>
+<h2 id="4-实战"><a href="#4-实战" class="headerlink" title="4. 实战"></a>4. 实战</h2><blockquote>
+<p>实战将会带你实例化默克尔树对象以及取得默克尔树验证！</p>
+</blockquote>
+<h3 id="4-1-JavaScript实现"><a href="#4-1-JavaScript实现" class="headerlink" title="4.1 JavaScript实现"></a>4.1 JavaScript实现</h3><p><strong>安装</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm i -D merkletreejs keccak256<br></code></pre></td></tr></table></figure>
+
+<p>&#x3D;&#x3D;<code>merkletree.js</code>&#x3D;&#x3D;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> &#123;<span class="hljs-title class_">MerkleTree</span>&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;merkletreejs&#x27;</span>)<br><br><span class="hljs-keyword">const</span> keccak256 = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;keccak256&#x27;</span>)<br><br><br><span class="hljs-keyword">let</span> whitelistAddresses = [<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2815&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2816&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2817&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2818&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2819&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2820&quot;</span>,<br>    <span class="hljs-string">&quot;0x262bCDeEf90181676BDC0a247A1954666F8a2821&quot;</span>       <br>]<br><br><span class="hljs-comment">//buffer化叶子结点</span><br><span class="hljs-keyword">const</span> leafNodes = whitelistAddresses.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">addr</span> =&gt;</span> <span class="hljs-title function_">keccak256</span>(addr))<br><br><span class="hljs-comment">//实例化默克尔树</span><br><span class="hljs-keyword">const</span> merkleTree = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MerkleTree</span>(leafNodes,keccak256,&#123;<span class="hljs-attr">sortPairs</span>:<span class="hljs-literal">true</span>&#125;);<br><br><span class="hljs-comment">//获取根哈希值</span><br><span class="hljs-keyword">const</span> rootHash = merkleTree.<span class="hljs-title function_">getRoot</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Whitelist Merkle Tree\n&#x27;</span>,merkleTree.<span class="hljs-title function_">toString</span>())<br><br><span class="hljs-comment">//定义你所需要验证的地址</span><br><span class="hljs-keyword">const</span> claimingAddress = leafNodes[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment">//取得默克尔树证明</span><br><span class="hljs-keyword">const</span> hexProof = merkleTree.<span class="hljs-title function_">getHexProof</span>(claimingAddress)<br><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Merkle Proof for Address is\n`</span>,hexProof)<br><br><br><span class="hljs-comment">//当你传入一个错误的白名单地址时</span><br><span class="hljs-keyword">const</span> errAddress = <span class="hljs-title function_">keccak256</span>(<span class="hljs-string">&#x27;0x98D9897e0F0389158978B384E6ecF3cf93153876&#x27;</span>);<br><br><span class="hljs-comment">//取得默克尔证明</span><br><span class="hljs-keyword">const</span> hexProof1 = merkleTree.<span class="hljs-title function_">getHexProof</span>(errAddress)<br><br><span class="hljs-comment">//将会得到空数组！</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Merkle Proof for error Address is\n`</span>,hexProof1)<br></code></pre></td></tr></table></figure>
+
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p><img src="/2022/09/02/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95/Merkle%E6%A0%91%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0NFT%E7%99%BD%E5%90%8D%E5%8D%95%5C5.png" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p> 由于该默克尔树是由七个叶子节点组成的，所以这是一个三层结构的树，因此默克尔证明将会取得三个哈希值作为凭证。当树结构为五层，六层… 默克尔证明的哈希值数量会对应增加！</p>
+</blockquote>
+<h3 id="4-2-智能合约实现"><a href="#4-2-智能合约实现" class="headerlink" title="4.2 智能合约实现"></a>4.2 智能合约实现</h3><p><code>Merkletree.sol</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: SEE LICENSE IN LICENSE<br>pragma solidity ^0.8.0;<br><br><br>//导入默克尔树智能合约<br>import &quot;https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/cryptography/MerkleProof.sol&quot;;<br><br>contract Merkletree&#123;<br><br>    //该根哈希值需要你用到刚刚js生成的merkle树的根哈希（记得加上0x）<br>    bytes32 public merkleRoot = 0x3a6036ef5f6da50ea7f3dc72c7c83c1e6d5be6cded8ad495fb4b0bb870f1c093;<br>    <br>    //记录白名单是否被使用过<br>    mapping(address =&gt; bool) public whitelistClaimed;<br><br>    //使用白名单函数<br>    function whitelistMint(bytes32[] calldata _merkleProof) public&#123;<br>        //要求白名单没有被使用过<br>        require(!whitelistClaimed[msg.sender],&quot;Address has already claimed&quot;);<br>        //初始化叶子哈希<br>        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));<br>        //将叶子哈希传入merkle树验证，查看是否是白名单<br>        require(MerkleProof.verify(_merkleProof, merkleRoot , leaf),&quot;Invalid proof&quot;);<br>        //是白名单，记录该白名单使用过<br>        whitelistClaimed[msg.sender] = true;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>Merkle树是区块链中非常重要的数据结构，它的应用极大地减小了哈希安全验证的难度，提高了合约安全程度，减少了被攻击成功的可能性。</p>
+<p>感谢阅读！</p>
+<blockquote>
+<p>Blog by Science_jun</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%AE%97%E6%B3%95/" class="category-chain-item">区块链算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Merkle%E6%A0%91%EF%BC%8C%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81/">#Merkle树，数据验证</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Merkle树——实现NFT白名单</div>
+      <div>http://nangbowan.github.io/2022/09/02/Merkle树——实现NFT白名单/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Science_Jun</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月2日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/01/Git%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0/" title="git-bash操作简记">
+                        <span class="hidden-mobile">git-bash操作简记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

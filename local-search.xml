@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Nginx&amp;Caddy操作小结</title>
+    <link href="/2022/09/09/Nginx-Caddy%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/"/>
+    <url>/2022/09/09/Nginx-Caddy%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Solidity函数修饰符大全</title>
     <link href="/2022/09/09/Solidity%E5%87%BD%E6%95%B0%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%A4%A7%E5%85%A8/"/>
     <url>/2022/09/09/Solidity%E5%87%BD%E6%95%B0%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%A4%A7%E5%85%A8/</url>
@@ -46,6 +59,31 @@
     <tags>
       
       <tag>DAPP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux操作小结</title>
+    <link href="/2022/09/06/Centos%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0(%E5%AE%9D%E5%A1%94)/"/>
+    <url>/2022/09/06/Centos%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0(%E5%AE%9D%E5%A1%94)/</url>
+    
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ /etc/init.d/bt default <span class="hljs-comment">#获取服务器默认密码</span><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ isof -i:80 <span class="hljs-comment"># 查看80端口下的进程</span><br></code></pre></td></tr></table></figure><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol><li>ctrl + L 清屏</li><li>pwd 查看当前路径</li><li>touch 创建文件</li><li>mkdir 创建文件夹</li><li>rm 删除文件或目录</li><li>rm -rf 强制删除并且无法恢复（慎用）</li><li>wc 统计并且输出文件的行数单词数和字节数</li><li>打包与压缩：tar -zcvf xxx.tar</li><li>解包与解压：tar -zxvf xxx.tar</li></ol><h2 id="vim操作"><a href="#vim操作" class="headerlink" title="vim操作"></a>vim操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">不编辑内容直接退出，在命令模式下输入</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">:q</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">编辑内容不保存直接退出，在命令模式下输入</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">:q!</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">编辑内容后保存退出，在命令模式下输入</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">:wq</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">将光标定在文件第一行</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">gg</span><br></code></pre></td></tr></table></figure><h2 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h2><blockquote><p>新开一个任务终端，用于后台运行！</p></blockquote><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">yum -y install screen</span><br></code></pre></td></tr></table></figure><h3 id="创建一个叫demo的screen任务"><a href="#创建一个叫demo的screen任务" class="headerlink" title="创建一个叫demo的screen任务"></a>创建一个叫demo的screen任务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">screen -S demo</span><br></code></pre></td></tr></table></figure><h3 id="查看screen任务"><a href="#查看screen任务" class="headerlink" title="查看screen任务"></a>查看screen任务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">screen -<span class="hljs-built_in">ls</span></span><br></code></pre></td></tr></table></figure><h3 id="将screen任务放到后台"><a href="#将screen任务放到后台" class="headerlink" title="将screen任务放到后台"></a>将screen任务放到后台</h3><p>快捷键 <code>ctrl</code>+<code>a</code>+<code>d</code></p><h3 id="进入screen任务"><a href="#进入screen任务" class="headerlink" title="进入screen任务"></a>进入screen任务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">screen -r &#123;pid&#125;</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">或者</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">screen -r &#123;task_name&#125;</span><br></code></pre></td></tr></table></figure><h3 id="删除screen任务"><a href="#删除screen任务" class="headerlink" title="删除screen任务"></a>删除screen任务</h3><p>使用 <code>-r</code> 进入screen任务之后 输入  <code>exit</code></p><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">/etc/init.d/iptables stop <span class="hljs-comment">#关闭防火墙</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">iptables -nL  <span class="hljs-comment">#查看iptables详细策略信息</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">iptables -A INPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通入方向的8080端口</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">iptables -A OUTPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通出方向的8080端口</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">iptables  -F： <span class="hljs-comment">#清除所有制订的规则</span></span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>服务器</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
       
     </tags>
     
@@ -121,31 +159,6 @@
     <tags>
       
       <tag>Uniswap</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Centos操作简记(宝塔)</title>
-    <link href="/2022/09/01/Centos%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0(%E5%AE%9D%E5%A1%94)/"/>
-    <url>/2022/09/01/Centos%E6%93%8D%E4%BD%9C%E7%AE%80%E8%AE%B0(%E5%AE%9D%E5%A1%94)/</url>
-    
-    <content type="html"><![CDATA[<h2 id="uwsgi"><a href="#uwsgi" class="headerlink" title="uwsgi"></a>uwsgi</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ /etc/init.d/bt default <span class="hljs-comment">#获取服务器默认密码</span><br></code></pre></td></tr></table></figure><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ /etc/init.d/iptables stop <span class="hljs-comment">#关闭防火墙</span><br>$ iptables -nL  <span class="hljs-comment">#查看iptables详细策略信息</span><br>$ iptables -A INPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通入方向的8080端口</span><br>$ iptables -A OUTPUT -p tcp --dport 8080 -j ACCEPT <span class="hljs-comment">#放通出方向的8080端口</span><br>$ iptables  -F： <span class="hljs-comment">#清除所有制订的规则</span><br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>基操勿6</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Linux基操</tag>
       
     </tags>
     

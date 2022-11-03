@@ -16,27 +16,22 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="区块链 深度学习">
   
-    <meta name="description" content="1. What？ 在区块链中删除代码的唯一方法是该地址的合约执行自毁操作，即 selfdestruct()。 存储在该地址的剩余以太被发送到指定目标，然后从该状态中删除存储和代码。  12345678910&#x2F;&#x2F; SPDX-License-Identifier: MITpragma solidity ^0.8.0;contract Example&amp;#123;    constructor(addre">
+    <meta name="description" content="1. 区块和交易属性API blockhash(uint blockNumber) block.coinbash(address) block.difficulty(uint) 获得当前区块难度 block.gaslimit(uint) block.number(uint) block.timestamp(uint) gasleft() returns(uint256) msg.data(byte">
 <meta property="og:type" content="article">
-<meta property="og:title" content="区块链骇客第二讲:被禁用的自毁函数">
-<meta property="og:url" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:title" content="最全！Solidity全局变量及API">
+<meta property="og:url" content="http://nangbowan.github.io/2022/11/04/Solidity%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%8F%8AAPI/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="1. What？ 在区块链中删除代码的唯一方法是该地址的合约执行自毁操作，即 selfdestruct()。 存储在该地址的剩余以太被发送到指定目标，然后从该状态中删除存储和代码。  12345678910&#x2F;&#x2F; SPDX-License-Identifier: MITpragma solidity ^0.8.0;contract Example&amp;#123;    constructor(addre">
+<meta property="og:description" content="1. 区块和交易属性API blockhash(uint blockNumber) block.coinbash(address) block.difficulty(uint) 获得当前区块难度 block.gaslimit(uint) block.number(uint) block.timestamp(uint) gasleft() returns(uint256) msg.data(byte">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog/source_posts/区块链骇客第二讲-被禁用的自毁函数/1.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog/source_posts/区块链骇客第二讲-被禁用的自毁函数/2.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog/source_posts/区块链骇客第二讲-被禁用的自毁函数/3.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog/source_posts/区块链骇客第二讲-被禁用的自毁函数/4.png">
-<meta property="article:published_time" content="2022-11-01T11:50:22.000Z">
-<meta property="article:modified_time" content="2022-11-03T05:34:24.201Z">
+<meta property="article:published_time" content="2022-11-04T04:27:31.000Z">
+<meta property="article:modified_time" content="2022-11-03T05:32:33.140Z">
 <meta property="article:author" content="Science_Jun">
-<meta property="article:tag" content="合约安全审计">
+<meta property="article:tag" content="智能合约 基础知识">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://nangbowan.github.io/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog/source_posts/区块链骇客第二讲-被禁用的自毁函数/1.png">
   
   
   
-  <title>区块链骇客第二讲:被禁用的自毁函数 - 77Brother</title>
+  <title>最全！Solidity全局变量及API - 77Brother</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -250,7 +245,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="区块链骇客第二讲:被禁用的自毁函数"></span>
+            <span id="subtitle" data-typed-text="最全！Solidity全局变量及API"></span>
           
         </div>
 
@@ -266,8 +261,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-01 19:50" pubdate>
-          2022年11月1日 晚上
+        <time datetime="2022-11-04 12:27" pubdate>
+          2022年11月4日 中午
         </time>
       </span>
     
@@ -278,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.6k 字
         
       </span>
     
@@ -289,7 +284,7 @@
         
         
         
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -335,61 +330,65 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">区块链骇客第二讲:被禁用的自毁函数</h1>
+            <h1 style="display: none">最全！Solidity全局变量及API</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-What？"><a href="#1-What？" class="headerlink" title="1. What？"></a>1. What？</h2><blockquote>
-<p>在区块链中删除代码的<mark>唯一方法</mark>是该地址的合约执行自毁操作，即 <mark>selfdestruct</mark>()。</p>
-<p>存储在该地址的剩余以太被发送到指定目标，然后从该状态中删除存储和代码。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br><br>contract Example&#123;<br>    constructor(address payable to) payable &#123;<br>        // redirect all the `msg.value` to `to` when selfdestructing<br>        selfdestruct(to);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-
-<p>如上例所示，这是一个包含着<code>selfdestruct()</code>函数的简单合约。</p>
-<p><code>constructor</code> 构造器，<code>payable</code>关键词使得该合约在被创建时就能够接收以太</p>
-<p><code>selfdestruct()</code>自毁函数，合约在创建之时，就直接自毁，删除代码，并且将合约本身的余额<mark>强制</mark>发送到<code>to</code>这个地址上；</p>
-<h3 id="说的简单点，自毁函数只有两个核心作用"><a href="#说的简单点，自毁函数只有两个核心作用" class="headerlink" title="说的简单点，自毁函数只有两个核心作用"></a>说的简单点，自毁函数只有两个核心作用</h3><ol>
-<li>它使合约变为无效，有效地删除该地址的字节码。</li>
-<li>它把合约的所有资金<mark>强制</mark>发送到目标地址。</li>
+                <h2 id="1-区块和交易属性API"><a href="#1-区块和交易属性API" class="headerlink" title="1. 区块和交易属性API"></a>1. 区块和交易属性API</h2><ol>
+<li><code>blockhash(uint blockNumber)</code></li>
+<li><code>block.coinbash(address)</code></li>
+<li><code>block.difficulty(uint) </code>获得当前区块难度</li>
+<li><code>block.gaslimit(uint)</code></li>
+<li><code>block.number(uint)</code></li>
+<li><code>block.timestamp(uint)</code></li>
+<li><code>gasleft() returns(uint256)</code></li>
+<li><code>msg.data(bytes)</code></li>
+<li><code>msg.sender(address)</code></li>
+<li><code>msg.sig(byte4) </code>调用函数的标识符</li>
+<li><code>msg.value(uint)</code></li>
+<li><code>tx.gasprice(uint)</code></li>
+<li><code>tx.origin(address paybale)</code> 交易起始发送者</li>
 </ol>
-<h2 id="2-Why？"><a href="#2-Why？" class="headerlink" title="2. Why？"></a>2. Why？</h2><blockquote>
-<p>或许你对我上一部分举出的合约例子可能会感到疑惑，为什么不说得简洁一些呢？</p>
-<p>那到底为什么要禁用自毁函数呢？</p>
-<p>答案就在这个例子中！</p>
-</blockquote>
-<p><strong>这是一个具有攻击性的自毁合约；</strong></p>
-<p>刚刚说到，当调用自毁函数之时，合约余额将会被强制发送指定的地址上。</p>
-<p>注意<mark>强制</mark>这一个词，这意味着接收地址合约无论是否拥有接收以太的函数，它都无法拒绝这笔余额打进来。</p>
-<p><strong>而这正是自毁函数被禁用的原因</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br><br>//被攻击合约<br>contract Attacked &#123;<br>    //部署时传入0.08 ether<br>    constructor() payable &#123;&#125;<br><br>    //获取合约余额<br>    function getBalance() public view returns (uint256 balance) &#123;<br>        balance = address(this).balance;<br>        return balance;<br>    &#125;<br><br>    //提款函数<br>    function withdraw(uint256 amount) external &#123;<br>        require(address(this).balance &gt; 0.1 ether);<br>        require(amount &lt;= address(this).balance);<br>        payable(msg.sender).transfer(address(this).balance);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="2-ABI编码以及解码函数API"><a href="#2-ABI编码以及解码函数API" class="headerlink" title="2. ABI编码以及解码函数API"></a>2. ABI编码以及解码函数API</h2><ol>
+<li><p><code>abi.encode(bytes memory data,(...)) returns (...)</code>对给定的数据进行ABI解码，数据的类型又括号中的第二个参数给出。</p>
+<p>for example:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs solidity">(uint a,uint[2] memory b,bytes memory c) = abi.decode(data,(uint,uint[2],bytes))<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>abi.decode(...) returns (bytes)</code>对给定参数进行ABI编码，即上一个方法反向操作。</p>
+</li>
+<li><p><code>abi.encodePacked(...) returns (bytes)</code> 对给定参数进行ABI编码，不同的是：decode()函数会把参数填充到32字节长度，而该函数编码的参数会紧密地拼在一起。</p>
+</li>
+<li><p><code>abi.encodeWithSelector(bytes4 selector, ...) returns (bytes) </code>从第二个参数开始ABI编码并在前面加上给定地函数选择器<code>selector</code></p>
+</li>
+<li><p><code>abi,encodeWithSignature(string signature, ...) returns (bytes)</code> 等价于 <code>abi.encodeWithSelector(bytes4(keccak256(signature)), ...) </code></p>
+<p>for example</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">payable(attackedContract).call(<br>           abi.encodeWithSignature(<br>               &quot;withdraw(uint256)&quot;,<br>               address(attackedContract).balance<br>           ));<br></code></pre></td></tr></table></figure>
 
-<p><strong>如上例所示：这是一个被攻击的合约</strong></p>
-<p>那么问题来了，如何使用上面所学知识，将合约中的<code>0.08 ether</code>装进自己的钱包？</p>
-<h2 id="3-Try-！"><a href="#3-Try-！" class="headerlink" title="3. Try ！"></a>3. Try ！</h2><h3 id="让我们研究一下此合约"><a href="#让我们研究一下此合约" class="headerlink" title="让我们研究一下此合约"></a>让我们研究一下此合约</h3><ol>
-<li>无<code>receive()</code>、以及任何实现<code>payable</code>的function，说明合约无法正常接收以太交易；</li>
-<li><code>withdraw()</code>是外部函数，并且<mark>最关键的限制条件</mark>是使合约余额大于0.1 ether；</li>
+<p>等同于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">payable(attackedContract).call(<br>             abi.encodeWithSelector(<br>                bytes4(keccak256(&quot;withdraw(uint256)&quot;)),<br>                address(attackedContract).balance<br>            ));<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>只要我们能够有办法将0.021个甚至更少的ether打进该合约，让调用<code>withdraw()</code>函数满足条件，就可以成功赚到0.08个ether。</p>
-<p>讲到这里，相信大家已经悟了，摩拳擦掌准备大展身手了！</p>
-<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><ul>
-<li>被攻击合约本身就有0.08 ether</li>
-</ul>
-<p><img src="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog\source_posts\区块链骇客第二讲-被禁用的自毁函数\1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-数学和密码学函数API"><a href="#3-数学和密码学函数API" class="headerlink" title="3. 数学和密码学函数API"></a>3. 数学和密码学函数API</h2><ol>
+<li><p><code>addmod(uint x,uint y, uint k) returns (uint)</code>计算(x+y) % k，即先求和再求模，求和可以在任意精度下执行，和可以超过2的256次，会对k!&#x3D;0做检查。</p>
+</li>
+<li><p><code>mulmod(uint x,uint y, uint k) returns (uint)</code> 计算(x*y) % k，即先乘再求模，同样可以在任意精度下执行，会对k!&#x3D;0做检查。</p>
+</li>
+<li><p><code>keccak256(bytes memory) returns (bytes32)</code>用Keccak-256算法计算哈希。</p>
+</li>
+<li><p><code>sha256(bytes memory) returns (bytes32)</code> 计算SHA-256的哈希。</p>
+</li>
+<li><p><code>ripemd160(bytes memory) returns (bytes20)</code> 计算参数的RIPEMD-160哈希。</p>
+</li>
+<li><p><code>ecrecover(bytes32 hash, uint8 v, byte32 r, bytes32 s) returns (address)</code> 通过椭圆曲线签名恢复与公钥地址。</p>
+<p>r：签名的前32个字节；</p>
+<p>s：签名的第二个32个字节</p>
+<p>v：签名的最后一个字节；</p>
+</li>
+</ol>
+<p><strong>参考书籍</strong></p>
 <ul>
-<li>部署攻击合约，传入大于0.02个ether</li>
+<li>智能合约技术与开发 - 熊丽兵</li>
 </ul>
-<p><img src="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog\source_posts\区块链骇客第二讲-被禁用的自毁函数\2.png" srcset="/img/loading.gif" lazyload></p>
-<ul>
-<li>查看合约余额是否大于0.1 ether</li>
-</ul>
-<p><img src="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog\source_posts\区块链骇客第二讲-被禁用的自毁函数\3.png" srcset="/img/loading.gif" lazyload></p>
-<ul>
-<li>调用<code>withdraw()</code>函数提取合约所有余额，大功告成！</li>
-</ul>
-<p><img src="/2022/11/01/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%8C%E8%AE%B2-%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E8%87%AA%E6%AF%81%E5%87%BD%E6%95%B0/77BrotherBlog\source_posts\区块链骇客第二讲-被禁用的自毁函数\4.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="更多区块链技术干货请关注"><a href="#更多区块链技术干货请关注" class="headerlink" title="更多区块链技术干货请关注"></a>更多区块链技术干货请关注</h2><p><a target="_blank" rel="noopener" href="http://www.lanlianbbs.com/">岚链技术论坛</a></p>
-<p><a href="https://nangbowan.github.io/">77Brother的技术小栈（个人博客）</a></p>
 
                 
               </div>
@@ -408,8 +407,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2/" class="category-chain-item">区块链骇客</a>
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" class="category-chain-item">区块链</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
+  
+  
+
   
 
       </span>
@@ -423,7 +429,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1/">#合约安全审计</a>
+        <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">#智能合约 基础知识</a>
       
     </div>
   
@@ -435,8 +441,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>区块链骇客第二讲:被禁用的自毁函数</div>
-      <div>http://nangbowan.github.io/2022/11/01/区块链骇客第二讲-被禁用的自毁函数/</div>
+      <div>最全！Solidity全局变量及API</div>
+      <div>http://nangbowan.github.io/2022/11/04/Solidity全局变量及API/</div>
     </div>
     <div class="license-meta">
       
@@ -448,7 +454,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月1日</div>
+          <div>2022年11月4日</div>
         </div>
       
       
@@ -478,9 +484,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/03/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%B8%89%E8%AE%B2-Call%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" title="区块链骇客第三讲-Call注入攻击">
+                      <a href="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/" title="区块链骇客第四讲-窥探私有变量">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">区块链骇客第三讲-Call注入攻击</span>
+                        <span class="hidden-mobile">区块链骇客第四讲-窥探私有变量</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -488,8 +494,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/01/%E7%AE%80%E5%8D%95%E7%B2%97%E6%9A%B4%E5%8C%BA%E5%88%86Solidity%E7%9A%84calldata%E5%92%8Cmemory/" title="简单粗暴区分Solidity的calldata和memory">
-                        <span class="hidden-mobile">简单粗暴区分Solidity的calldata和memory</span>
+                      <a href="/2022/11/03/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%B8%89%E8%AE%B2-Call%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" title="区块链骇客第三讲-Call注入攻击">
+                        <span class="hidden-mobile">区块链骇客第三讲-Call注入攻击</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

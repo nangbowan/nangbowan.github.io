@@ -16,18 +16,18 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="区块链 深度学习">
   
-    <meta name="description" content="本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量 首先给大家留个疑问：私有变量真的意味着私密不可窥探吗？  答案可以先告诉大家：当然不是！   Everything is public on  the blockchain!  在区块链中，任何东西实际上都是公开的！没有什么东西使真正私有的，即使一个变量是private或internal的。 📕1. 挑战这是et">
+    <meta name="description" content="前情提示：本篇文章较为硬核，需读者有一定开发基础。 本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量。 首先给大家留个疑问：私有变量真的意味着私密不可窥探吗？  答案可以先告诉大家：当然不是！  Everything is public on  the blockchain!  在区块链中，任何东西实际上都是公开的！没有什么东西使真正私有的，即使一个变量是priv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区块链骇客第四讲-破解私有变量">
 <meta property="og:url" content="http://nangbowan.github.io/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量 首先给大家留个疑问：私有变量真的意味着私密不可窥探吗？  答案可以先告诉大家：当然不是！   Everything is public on  the blockchain!  在区块链中，任何东西实际上都是公开的！没有什么东西使真正私有的，即使一个变量是private或internal的。 📕1. 挑战这是et">
+<meta property="og:description" content="前情提示：本篇文章较为硬核，需读者有一定开发基础。 本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量。 首先给大家留个疑问：私有变量真的意味着私密不可窥探吗？  答案可以先告诉大家：当然不是！  Everything is public on  the blockchain!  在区块链中，任何东西实际上都是公开的！没有什么东西使真正私有的，即使一个变量是priv">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/1.png">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/2.png">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/3.png">
 <meta property="article:published_time" content="2022-11-07T11:39:34.000Z">
-<meta property="article:modified_time" content="2022-11-04T10:13:33.514Z">
+<meta property="article:modified_time" content="2022-11-04T10:28:04.186Z">
 <meta property="article:author" content="Science_Jun">
 <meta property="article:tag" content="合约安全审计 私有变量">
 <meta name="twitter:card" content="summary_large_image">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          6.5k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          46 分钟
+          55 分钟
         
       </span>
     
@@ -340,16 +340,17 @@
               <div class="markdown-body">
                 
                 <blockquote>
-<p>本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量</p>
+<p>前情提示：本篇文章较为硬核，需读者有一定开发基础。</p>
+<p>本篇文章将会以ethernaut中的第8和第12个例子来剖析智能合约中的私有变量。</p>
 <p>首先给大家留个疑问：私有变量真的意味着私密不可窥探吗？</p>
 </blockquote>
-<p>答案可以先告诉大家：<strong>当然不是</strong>！ </p>
+<p>答案可以先告诉大家：<mark>当然不是！</mark></p>
 <blockquote>
 <p>Everything is public on  the blockchain!</p>
 </blockquote>
 <p>在区块链中，任何东西实际上都是公开的！没有什么东西使真正私有的，即使一个变量是<code>private</code>或<code>internal</code>的。</p>
-<h2 id="📕1-挑战"><a href="#📕1-挑战" class="headerlink" title="📕1. 挑战"></a>📕1. 挑战</h2><p>这是ethernaut中的第8个例子</p>
-<p>现在把需求交给你：<mark>将合约解锁，即让 <code>locked  = false</code></mark></p>
+<h2 id="📕1-挑战-？"><a href="#📕1-挑战-？" class="headerlink" title="📕1. 挑战 ？"></a>📕1. 挑战 ？</h2><p>这是ethernaut中的第8个例子~</p>
+<p>现在把需求交给你：<mark>将合约解锁，即让 locked  &#x3D; false。</mark></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.6.0;<br><br>contract Vault &#123;<br>  bool public locked;<br>  bytes32 private password;<br><br>  constructor(bytes32 _password) public &#123;<br>    locked = true;<br>    password = _password;<br>  &#125;<br><br>  function unlock(bytes32 _password) public &#123;<br>    if (password == _password) &#123;<br>      locked = false;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
@@ -372,7 +373,7 @@
 <ul>
 <li><p>存储插槽的第一个变量是所有变量中占字节最小的，通常是<code>bool</code>类型的变量；</p>
 <p>for example</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">(bool success1, ) = payable(attackedContract).call&#123;value: msg.value&#125;(<br>            abi.encodeWithSignature(&quot;donate(address)&quot;, address(this))<br>        );<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs solidity">(bool success1, ) = payable(attackedContract).call&#123;value: msg.value&#125;(abi.encodeWithSignature(&quot;donate(address)&quot;, address(this)));<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>值类型只使用存储它们所需的字节数；</p>
 </li>
@@ -380,17 +381,17 @@
 </li>
 <li><p>结构体(struct) 和数组数据(array)会开启一个新存储槽；</p>
 </li>
-<li><p><code>constant</code>和<code>immutable</code>变量将不占用存储槽，因为它们将在编译时或部署时直接在代码中被替换为值；</p>
+<li><p><code>constant</code>和<code>immutable</code>变量将不占用存储槽，因为它们将在编译时或部署时直接在代 码中被替换为值；</p>
 </li>
 </ul>
-<p>注：对于使用继承的合约，状态变量的排序将会从最基类合约开始确定，来自不同合约的状态变量将会共享一个存储插槽；结构体和数组中的成员变量会存储在一起，就像它们单独声明时一样地存储。</p>
+<p><mark>注：</mark>对于使用继承的合约，状态变量的排序将会从最基类合约开始确定，来自不同合约的状态变量将会共享一个存储插槽；结构体和数组中的成员变量会存储在一起，就像它们单独声明时一样地存储。</p>
 <h3 id="🐟映射和动态数组（深入理解）"><a href="#🐟映射和动态数组（深入理解）" class="headerlink" title="🐟映射和动态数组（深入理解）"></a>🐟映射和动态数组（深入理解）</h3><blockquote>
 <p>由于映射和动态数组不可预知大小，不能在<mark>状态变量</mark>之间存储它们。</p>
 <p>相反，它们自身根据以上规则仅占用32个字节，然后他们包含的元素的存储槽的位置，是通过Keccak-256哈希计算来确定的！</p>
 </blockquote>
 <p>假设映射和动态数组根据上述存储规则最终可确定某个 <code>位置p</code></p>
 <p><img src="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/1.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="对于动态数组（array）"><a href="#对于动态数组（array）" class="headerlink" title="对于动态数组（array）"></a>对于动态数组（array）</h4><ol>
+<h4 id="🌏-对于动态数组（array）"><a href="#🌏-对于动态数组（array）" class="headerlink" title="🌏 对于动态数组（array）"></a>🌏 对于动态数组（array）</h4><ol>
 <li><p>插槽p会存储数组中元素的数量（字节数组和字符串除外）；</p>
 </li>
 <li><p>数组的元素将会从<code>keccak256(p)</code>开始，布局方式与静态大小的数组相同，一个元素接着一个元素，如果元素的长度不超过16字节，将会共享存储插槽；</p>
@@ -404,7 +405,7 @@
 <p><mark>如何确定<code>data[i][j]</code>元素的位置 ？</mark>(假设动态数组data本身存储在插槽p的位置)</p>
 <p>则<code>data[i][j]</code>的槽位将是 <code>keccak256(keccak256(p) + i) + floor(j/floor(256/24))</code></p>
 <p>并且可以得到槽数据中的元素内容：<code>v &gt;&gt; ((j%floor(256/24))*24)) &amp; type(uint24).max</code></p>
-<h4 id="对于映射（mapping）"><a href="#对于映射（mapping）" class="headerlink" title="对于映射（mapping）"></a>对于映射（mapping）</h4><ol>
+<h4 id="🌏对于映射（mapping）"><a href="#🌏对于映射（mapping）" class="headerlink" title="🌏对于映射（mapping）"></a>🌏对于映射（mapping）</h4><ol>
 <li><p>插槽p将不会被使用（即空），但它仍是有存在必要的，以确保两个彼此挨着映射；</p>
 </li>
 <li><p>映射中的键<code>k</code>所对应的槽会位于<code>keccak256(h(k).p)</code>，其中<code>.</code>是连接符，<code>h</code>是一个函数；</p>
@@ -434,7 +435,7 @@
 <tr>
 <th align="center">类型</th>
 <th align="center">bit数</th>
-<th align="center">所占字节数</th>
+<th align="center">字节数</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -521,10 +522,20 @@
 <h3 id="🚀破解私有变量成功"><a href="#🚀破解私有变量成功" class="headerlink" title="🚀破解私有变量成功"></a>🚀破解私有变量成功</h3><p><img src="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/2.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id><a href="#" class="headerlink" title></a></h3><p><strong>ethernaut通关截图</strong></p>
 <p><img src="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/3.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="👨‍💻深度练习-课后作业"><a href="#👨‍💻深度练习-课后作业" class="headerlink" title="👨‍💻深度练习(课后作业)"></a>👨‍💻深度练习(课后作业)</h3><p>这是ethernaut的第12个例子~</p>
+<p>现在把需求交给你：<mark>解锁该合约！！即让 locked &#x3D; false。</mark></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.6.0;<br><br>contract Privacy &#123;<br><br>  bool public locked = true;<br>  uint256 public ID = block.timestamp;<br>  uint8 private flattening = 10;<br>  uint8 private denomination = 255;<br>  uint16 private awkwardness = uint16(now);<br>  bytes32[3] private data;<br><br>  constructor(bytes32[3] memory _data) public &#123;<br>    data = _data;<br>  &#125;<br>  <br>  function unlock(bytes16 _key) public &#123;<br>    require(_key == bytes16(data[2]));<br>    locked = false;<br>  &#125;<br><br>  /*<br>    A bunch of super advanced solidity algorithms...<br><br>      ,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`<br>      .,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,<br>      *.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^         ,---/V\<br>      `*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.    ~|__(o.o)<br>      ^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;^`*.,*&#x27;  UU  UU<br>  */<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>这道练习比前面那道有含金量多了，需要答案可以访问我的个人博客来联系我！</p>
+</blockquote>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://docs.ethers.io/v5/api/utils/strings/#Bytes32String">ethers.js-Strings-Bytes32String</a></p>
 <p><a target="_blank" rel="noopener" href="https://betterprogramming.pub/solidity-storage-variables-with-ethers-js-ca3c7e2c2a64">Solidity Storage Variables with Ethers.js</a></p>
 <p><a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/internals/layout_in_storage.html">状态变量在储存中的布局 — Solidity中文文档</a></p>
 <p><a target="_blank" rel="noopener" href="https://learnblockchain.cn/article/4629">Ethernaut 题库闯关 #8 — Vault (learnblockchain.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="https://learnblockchain.cn/article/4651">Ethernaut 题库闯关 #12 — Privacy(learnblockchain.cn)</a></p>
 
                 
               </div>

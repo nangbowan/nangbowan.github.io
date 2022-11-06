@@ -16,12 +16,12 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="区块链 深度学习">
   
-    <meta name="description" content="📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环  🌽堆栈和">
+    <meta name="description" content="[TOC] 📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环">
 <meta property="og:type" content="article">
-<meta property="og:title" content="狠人！用Python从零敲出一个EVM-1">
+<meta property="og:title" content="狠人！用Python从零敲出一个以太坊虚拟机-1">
 <meta property="og:url" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环  🌽堆栈和">
+<meta property="og:description" content="[TOC] 📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/2.png">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/6.png">
 <meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/7.png">
 <meta property="article:published_time" content="2022-11-08T02:13:17.000Z">
-<meta property="article:modified_time" content="2022-11-06T05:47:50.204Z">
+<meta property="article:modified_time" content="2022-11-06T05:58:03.698Z">
 <meta property="article:author" content="Science_Jun">
 <meta property="article:tag" content="EVM虚拟机 源码构建">
 <meta name="twitter:card" content="summary_large_image">
@@ -39,7 +39,7 @@
   
   
   
-  <title>狠人！用Python从零敲出一个EVM-1 - 77Brother</title>
+  <title>狠人！用Python从零敲出一个以太坊虚拟机-1 - 77Brother</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -253,7 +253,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="狠人！用Python从零敲出一个EVM-1"></span>
+            <span id="subtitle" data-typed-text="狠人！用Python从零敲出一个以太坊虚拟机-1"></span>
           
         </div>
 
@@ -338,12 +338,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">狠人！用Python从零敲出一个EVM-1</h1>
+            <h1 style="display: none">狠人！用Python从零敲出一个以太坊虚拟机-1</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="📕介绍"><a href="#📕介绍" class="headerlink" title="📕介绍"></a>📕介绍</h2><p>阅读完Cupid的 <a target="_blank" rel="noopener" href="https://femboy.capital/evm-pt1">Playdate with the EVM</a> 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（<a target="_blank" rel="noopener" href="https://github.com/ethereum/yellowpaper">yellow paper </a>）</p>
+                <p>[TOC]</p>
+<h2 id="📕介绍"><a href="#📕介绍" class="headerlink" title="📕介绍"></a>📕介绍</h2><p>阅读完Cupid的 <a target="_blank" rel="noopener" href="https://femboy.capital/evm-pt1">Playdate with the EVM</a> 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（<a target="_blank" rel="noopener" href="https://github.com/ethereum/yellowpaper">yellow paper </a>）</p>
 <p>在第一部分，我们将去构建:</p>
 <ul>
 <li>一个基本的堆栈(stack)</li>
@@ -467,7 +468,7 @@
 <p>有条件的同学可以点赞收藏加关注~这是对博主最大的肯定！</p>
 </blockquote>
 <h2 id="💎个人博客"><a href="#💎个人博客" class="headerlink" title="💎个人博客"></a>💎个人博客</h2><p><a href="https://nangbowan.github.io/">77Brother (nangbowan.github.io)</a></p>
-<h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><p><a target="_blank" rel="noopener" href="https://www.notion.so/Building-an-EVM-from-scratch-part-1-the-execution-context-c28ebb4200c94f6fb75948a5feffc686">Building an EVM from scratch part 1 - the execution context (notion.so)</a></p>
+<h2 id="🐋原文翻译链接"><a href="#🐋原文翻译链接" class="headerlink" title="🐋原文翻译链接"></a>🐋原文翻译链接</h2><p><a target="_blank" rel="noopener" href="https://www.notion.so/Building-an-EVM-from-scratch-part-1-the-execution-context-c28ebb4200c94f6fb75948a5feffc686">Building an EVM from scratch part 1 - the execution context (notion.so)</a></p>
 <p><a target="_blank" rel="noopener" href="https://ethereum.github.io/yellowpaper/paper.pdf">以太坊黄皮书-yellow paper</a></p>
 
                 
@@ -531,7 +532,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>狠人！用Python从零敲出一个EVM-1</div>
+      <div>狠人！用Python从零敲出一个以太坊虚拟机-1</div>
       <div>http://nangbowan.github.io/2022/11/08/狠人！用Python从零敲出一个EVM-1/</div>
     </div>
     <div class="license-meta">

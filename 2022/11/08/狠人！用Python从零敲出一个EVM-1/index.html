@@ -16,26 +16,26 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="区块链 深度学习">
   
-    <meta name="description" content="介绍📕介绍我非常享受阅读Cupid的 Playdate with the EVM 这篇文章，但我想要更多地去实践操作。 让我们尝试从头开始去构建一个以太坊虚拟机（EVM）！只参考EVM的黄皮书（yellow paper !） 在这部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码eval循环  🌽">
+    <meta name="description" content="📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环  🌽堆栈和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="狠人！用Python从零敲出一个EVM-1">
-<meta property="og:url" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/index.html">
+<meta property="og:url" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="介绍📕介绍我非常享受阅读Cupid的 Playdate with the EVM 这篇文章，但我想要更多地去实践操作。 让我们尝试从头开始去构建一个以太坊虚拟机（EVM）！只参考EVM的黄皮书（yellow paper !） 在这部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码eval循环  🌽">
+<meta property="og:description" content="📕介绍阅读完Cupid的 Playdate with the EVM 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（yellow paper ） 在第一部分，我们将去构建:  一个基本的堆栈(stack) 一个基本的临时存储器(memory) 代码缓冲区 一些指令 一个指令编译器 一个基础的提取解码循环  🌽堆栈和">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/2.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/3.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/4.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/5.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/6.png">
-<meta property="og:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/7.png">
-<meta property="article:published_time" content="2022-11-06T02:13:17.000Z">
-<meta property="article:modified_time" content="2022-11-06T05:23:05.488Z">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/2.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/3.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/4.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/5.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/6.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/7.png">
+<meta property="article:published_time" content="2022-11-08T02:13:17.000Z">
+<meta property="article:modified_time" content="2022-11-06T05:47:50.204Z">
 <meta property="article:author" content="Science_Jun">
 <meta property="article:tag" content="EVM虚拟机 源码构建">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://nangbowan.github.io/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png">
+<meta name="twitter:image" content="http://nangbowan.github.io/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png">
   
   
   
@@ -269,8 +269,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-06 10:13" pubdate>
-          2022年11月6日 上午
+        <time datetime="2022-11-08 10:13" pubdate>
+          2022年11月8日 上午
         </time>
       </span>
     
@@ -343,21 +343,21 @@
             
               <div class="markdown-body">
                 
-                <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h2 id="📕介绍"><a href="#📕介绍" class="headerlink" title="📕介绍"></a>📕介绍</h2><p>我非常享受阅读Cupid的 <a target="_blank" rel="noopener" href="https://femboy.capital/evm-pt1">Playdate with the EVM</a> 这篇文章，但我想要更多地去实践操作。 让我们尝试从头开始去构建一个以太坊虚拟机（EVM）！只参考EVM的黄皮书（<a target="_blank" rel="noopener" href="https://github.com/ethereum/yellowpaper">yellow paper !</a>）</p>
-<p>在这部分，我们将去构建:</p>
+                <h2 id="📕介绍"><a href="#📕介绍" class="headerlink" title="📕介绍"></a>📕介绍</h2><p>阅读完Cupid的 <a target="_blank" rel="noopener" href="https://femboy.capital/evm-pt1">Playdate with the EVM</a> 这篇文章后，我非常享受，但想要更多地去实践操作。 因此让我们尝试从头开始去构建一个以太坊虚拟机(EVM)！只参考以太坊黄皮书（<a target="_blank" rel="noopener" href="https://github.com/ethereum/yellowpaper">yellow paper </a>）</p>
+<p>在第一部分，我们将去构建:</p>
 <ul>
 <li>一个基本的堆栈(stack)</li>
 <li>一个基本的临时存储器(memory)</li>
 <li>代码缓冲区</li>
 <li>一些指令</li>
 <li>一个指令编译器</li>
-<li>一个基础的提取解码eval循环</li>
+<li>一个基础的提取解码循环</li>
 </ul>
 <h2 id="🌽堆栈和存储器"><a href="#🌽堆栈和存储器" class="headerlink" title="🌽堆栈和存储器"></a>🌽堆栈和存储器</h2><blockquote>
 <p>Most of the things we need to get started can be found in Section 9, The Execution Model.</p>
 <p>在以太坊黄皮书的第九部分提到了 <mark>执行模型</mark></p>
 </blockquote>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/1.png" srcset="/img/loading.gif" lazyload></p>
 <p>首先，我们得有一个256位字并且最大容量为1024的堆栈，就像这样：</p>
 <p><code>stack.py</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 栈类的深度限制为1024个元素</span><br><span class="hljs-keyword">from</span> .constants <span class="hljs-keyword">import</span> MAX_STACK_DEPTH, MAX_UINT256<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Stack</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, max_depth=MAX_STACK_DEPTH</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.stack = []<br>        self.max_depth = max_depth<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, item: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> item &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> item &gt; MAX_UINT256:<br>            <span class="hljs-keyword">raise</span> InvalidStackItem(&#123;<span class="hljs-string">&quot;item&quot;</span>: item&#125;)<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">len</span>(self.stack) + <span class="hljs-number">1</span>) &gt; self.max_depth:<br>            <span class="hljs-keyword">raise</span> StackOverflow()<br><br>        self.stack.append(item)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.stack) == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">raise</span> StackUnderflow()<br><br>        <span class="hljs-keyword">return</span> self.stack.pop()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(self.stack)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__repr__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">str</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(self)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StackUnderflow</span>(<span class="hljs-title class_ inherited__">Exception</span>):<br>    ...<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StackOverflow</span>(<span class="hljs-title class_ inherited__">Exception</span>):<br>    ...<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">InvalidStackItem</span>(<span class="hljs-title class_ inherited__">Exception</span>):<br>    ...<br><br></code></pre></td></tr></table></figure>
@@ -373,7 +373,7 @@
 
 <p>让我们先暂时忽略storage存储，先开始第二部分。</p>
 <hr>
-<h2 id="🌽定义指令"><a href="#🌽定义指令" class="headerlink" title="🌽定义指令"></a>🌽定义指令</h2><p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/2.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="🌽定义指令"><a href="#🌽定义指令" class="headerlink" title="🌽定义指令"></a>🌽定义指令</h2><p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/2.png" srcset="/img/loading.gif" lazyload></p>
 <p>以太坊虚拟机的合约代码不是于数据一起驻留在内存中的，而是另辟一个单独的空间存储。我们将其定义为一个简单的字节对象，可以得到如下<code>ExecutionContext</code>结构：</p>
 <p><code>context.py</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> .memory <span class="hljs-keyword">import</span> Memory<br><span class="hljs-keyword">from</span> .stack <span class="hljs-keyword">import</span> Stack<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">EVM中的合约代码不是与数据一起驻留在内存中，而是驻留在一个单独的区域中。</span><br><span class="hljs-string">如果我们将其定义为一个简单的字节对象，我们将得到以下ExecutionContext结构</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionContext</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, code=<span class="hljs-built_in">bytes</span>(<span class="hljs-params"></span>), pc=<span class="hljs-number">0</span>, stack=Stack(<span class="hljs-params"></span>), memory=Memory(<span class="hljs-params"></span>)</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.code = code<br>        self.stack = stack<br>        self.memory = memory<br>        self.pc = pc<br>        self.stopped = <span class="hljs-literal">False</span><br>        self.returndata = <span class="hljs-built_in">bytes</span>()<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">stop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.stopped = <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">read_code</span>(<span class="hljs-params">self, num_bytes</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :param num_bytes:</span><br><span class="hljs-string">        :return:Returns the next num_bytes from the code buffer (at index pc) as an integer and advances pc by num_bytes.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        value = <span class="hljs-built_in">int</span>.from_bytes(<br>            self.code[self.pc:self.pc + num_bytes], byteorder=<span class="hljs-string">&quot;big&quot;</span><br>        )<br>        self.pc += num_bytes<br>        <span class="hljs-keyword">return</span> value<br><br></code></pre></td></tr></table></figure>
@@ -410,7 +410,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 虚拟机的字大小为256位，即一次性处理256位长度的数据</span><br><br><span class="hljs-keyword">from</span> soul_evm.runner <span class="hljs-keyword">import</span> run<br><span class="hljs-keyword">import</span> sys<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) != <span class="hljs-number">2</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Usage: &#123;&#125; &lt;hexdata&gt;&quot;</span>.<span class="hljs-built_in">format</span>(sys.argv[<span class="hljs-number">0</span>]))<br>        sys.exit(<span class="hljs-number">1</span>)<br><br>    data = sys.argv[<span class="hljs-number">1</span>]<br>    run(<span class="hljs-built_in">bytes</span>.fromhex(data))<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 
 <p>这是我项目的路径：</p>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/3.png" srcset="/img/loading.gif" lazyload></p>
 <p>现在让我们运行它，并得到如下输出：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">PS E:evmproject\src&gt; python main.py 600660070200<br>PUSH1 @ pc=0<br>stack: [6]<br>memory:[]<br><br>PUSH1 @ pc=2<br>stack: [6, 7]<br>memory:[]<br><br>MUL @ pc=4<br>stack: [42]<br>memory:[]<br><br>STOP @ pc=5<br>stack: [42]<br>memory:[]<br><br>Output: 0x<br><br></code></pre></td></tr></table></figure>
 
@@ -421,7 +421,7 @@
 <hr>
 <p>当我试图在字节指令的末尾处获取下一条指令时，遇到了一个错误。</p>
 <p>让我们来看看关于这个场景下，黄皮书说了什么？</p>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/4.png" srcset="/img/loading.gif" lazyload></p>
 <p>大致概括一下：如果程序计数器在代码字节数组之外，那么将会干净利落地停止，而不是抛出异常，所以我们需要改变解码器中的条件：</p>
 <p><code>opcodes.py/decode_opcode</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">decode_opcode</span>(<span class="hljs-params">context: ExecutionContext</span>) -&gt; Instruction:<br>    <span class="hljs-keyword">if</span> context.pc &lt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">raise</span> InvalidCodeOffset(&#123;<span class="hljs-string">&quot;code&quot;</span>: context.code.<span class="hljs-built_in">hex</span>(), <span class="hljs-string">&quot;pc&quot;</span>: context.pc&#125;)<br><br>    <span class="hljs-keyword">if</span> context.pc &gt;= <span class="hljs-built_in">len</span>(context.code):<br>        <span class="hljs-keyword">return</span> STOP<br><br>    <span class="hljs-comment">#通过bytes获取指令</span><br>    opcode = context.read_code(<span class="hljs-number">1</span>)<br>    instruction = INSTRUCTIONS_BY_OPCODE.get(opcode)<br>    <span class="hljs-keyword">if</span> instruction <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">raise</span> UnknownOpcode(&#123;<span class="hljs-string">&quot;opcode&quot;</span>: opcode&#125;)<br><br>    <span class="hljs-keyword">return</span> instruction<br></code></pre></td></tr></table></figure>
@@ -435,12 +435,12 @@
 <p>到目前为止，我们一直在监视跟踪运行中的堆栈，但在实际应用中，以太坊虚拟机必须返回值才算有用。</p>
 <p>根据黄皮书，返回值意味着什么？</p>
 </blockquote>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/5.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/6.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/5.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/6.png" srcset="/img/loading.gif" lazyload></p>
 <p>返回从堆栈中弹出的两个元素，<code>offset</code>和<code>length</code>以及返回的<code>memory[offset:offset+length-1]</code></p>
 <hr>
 <p>所以为了返回数据，我们需要实现内存存储指令和<code>RETURN</code>。让我们从<code>MSTORE8</code>开始，它能够从堆栈中弹出一个偏移量和一个字，并将该字的最低字节存储在内存中：</p>
-<p><img src="/2022/11/06/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/7.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/11/08/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AAEVM-1/7.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">MSTORE8 = register_instruction(<br>    <span class="hljs-number">0x53</span>,<br>    <span class="hljs-string">&quot;MSTORE8&quot;</span>,<br>    (<span class="hljs-keyword">lambda</span> ctx: ctx.memory.store(ctx.stack.pop(), ctx.stack.pop() % <span class="hljs-number">256</span>)),<br>)<br></code></pre></td></tr></table></figure>
 
 <p>为了<code>RETURN</code>，我们添加一个<code>load_range(offset,length)</code> 来操作临时存储：</p>
@@ -468,7 +468,7 @@
 </blockquote>
 <h2 id="💎个人博客"><a href="#💎个人博客" class="headerlink" title="💎个人博客"></a>💎个人博客</h2><p><a href="https://nangbowan.github.io/">77Brother (nangbowan.github.io)</a></p>
 <h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><p><a target="_blank" rel="noopener" href="https://www.notion.so/Building-an-EVM-from-scratch-part-1-the-execution-context-c28ebb4200c94f6fb75948a5feffc686">Building an EVM from scratch part 1 - the execution context (notion.so)</a></p>
-<p><a target="_blank" rel="noopener" href="https://ethereum.github.io/yellowpaper/paper.pdf">以太坊黄皮书</a></p>
+<p><a target="_blank" rel="noopener" href="https://ethereum.github.io/yellowpaper/paper.pdf">以太坊黄皮书-yellow paper</a></p>
 
                 
               </div>
@@ -532,7 +532,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>狠人！用Python从零敲出一个EVM-1</div>
-      <div>http://nangbowan.github.io/2022/11/06/狠人！用Python从零敲出一个EVM-1/</div>
+      <div>http://nangbowan.github.io/2022/11/08/狠人！用Python从零敲出一个EVM-1/</div>
     </div>
     <div class="license-meta">
       
@@ -544,7 +544,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月6日</div>
+          <div>2022年11月8日</div>
         </div>
       
       
@@ -574,18 +574,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/" title="区块链骇客第四讲-破解私有变量">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">区块链骇客第四讲-破解私有变量</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/05/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="深入浅出以太坊虚拟机">
-                        <span class="hidden-mobile">深入浅出以太坊虚拟机</span>
+                      <a href="/2022/11/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E5%9B%9B%E8%AE%B2-%E7%A0%B4%E8%A7%A3%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F/" title="区块链骇客第四讲-破解私有变量">
+                        <span class="hidden-mobile">区块链骇客第四讲-破解私有变量</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

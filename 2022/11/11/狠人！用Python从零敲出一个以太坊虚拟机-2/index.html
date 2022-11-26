@@ -1,0 +1,865 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/lion.png">
+  <link rel="icon" href="/img/lion.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#708090">
+  <meta name="author" content="Science_Jun">
+  <meta name="keywords" content="区块链 深度学习">
+  
+    <meta name="description" content="[TOC] 📕介绍在这一部分，我们将拓展指令集，重点在于：  分支指令 循环和条件 跳转目的验证 堆栈操作指令（DUP,SWAP,PUSH）  让我们开始吧！ 🌳分支指令这些指令允许我们操作程序计数器，即下一条要运行的指令在代码缓冲区中的位置：  JUMP 从堆栈中弹出一项并且将程序设置成这个新值。 JUMPI如果第二个参数（一个条件）不为零，则执行相同的操作，否则执行道吓一跳指令。 用我们简">
+<meta property="og:type" content="article">
+<meta property="og:title" content="狠人！用Python从零敲出一个以太坊虚拟机-2">
+<meta property="og:url" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/index.html">
+<meta property="og:site_name" content="77Brother">
+<meta property="og:description" content="[TOC] 📕介绍在这一部分，我们将拓展指令集，重点在于：  分支指令 循环和条件 跳转目的验证 堆栈操作指令（DUP,SWAP,PUSH）  让我们开始吧！ 🌳分支指令这些指令允许我们操作程序计数器，即下一条要运行的指令在代码缓冲区中的位置：  JUMP 从堆栈中弹出一项并且将程序设置成这个新值。 JUMPI如果第二个参数（一个条件）不为零，则执行相同的操作，否则执行道吓一跳指令。 用我们简">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/1.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/2.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/3.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/4.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/5.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/6.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/7.png">
+<meta property="og:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/8.png">
+<meta property="article:published_time" content="2022-11-11T10:38:02.000Z">
+<meta property="article:modified_time" content="2022-11-12T09:25:23.638Z">
+<meta property="article:author" content="Science_Jun">
+<meta property="article:tag" content="EVM虚拟机 源码构建">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://nangbowan.github.io/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/1.png">
+  
+  
+  
+  <title>狠人！用Python从零敲出一个以太坊虚拟机-2 - 77Brother</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nangbowan.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":80,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"u6d39Kb2WhNShN3CQNE7qH6o-9Nh9j0Va","app_key":"ruyVye73kB7g6b2KZe0bFvsf","server_url":"https://u6d39kb2.lc-cn-e1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>77Brotherの技术小栈</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-map"></i>
+                时间线
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文章
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/">
+                    <i class="iconfont icon-category-fill"></i>
+                    分类
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    标签
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/">
+                <i class="iconfont icon-plan"></i>
+                项目
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                作者
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/article-bg.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="狠人！用Python从零敲出一个以太坊虚拟机-2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Science_Jun
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-11 18:38" pubdate>
+          2022年11月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">狠人！用Python从零敲出一个以太坊虚拟机-2</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="📕介绍"><a href="#📕介绍" class="headerlink" title="📕介绍"></a>📕介绍</h2><p>在这一部分，我们将拓展指令集，重点在于：</p>
+<ul>
+<li>分支指令</li>
+<li>循环和条件</li>
+<li>跳转目的验证</li>
+<li>堆栈操作指令（<code>DUP</code>,<code>SWAP</code>,<code>PUSH</code>）</li>
+</ul>
+<p>让我们开始吧！</p>
+<h2 id="🌳分支指令"><a href="#🌳分支指令" class="headerlink" title="🌳分支指令"></a>🌳分支指令</h2><p>这些指令允许我们操作程序计数器，即下一条要运行的指令在代码缓冲区中的位置：</p>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/1.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>JUMP</code> 从堆栈中弹出一项并且将程序设置成这个新值。</p>
+<p><code>JUMPI</code>如果第二个参数（一个条件）不为零，则执行相同的操作，否则执行道吓一跳指令。</p>
+<p>用我们简单明了的lambda风格来写这些是很诱人的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">JUMP = instruction(<br>    <span class="hljs-number">0x56</span>,<br>    <span class="hljs-string">&quot;JUMP&quot;</span>,<br>    (<span class="hljs-keyword">lambda</span> ctx: ctx.set_program_counter(ctx.stack.pop()),<br>)<br></code></pre></td></tr></table></figure>
+
+
+
+<p>然而，有一个陷阱！请记住，代码缓冲区是一个字节可寻址的ROM，我们的分支指令让我们跳转到…….缓冲区的一个字节。谁能说有一条有效的指令在哪个偏移量？如果每条指令都呢个整齐的放入一个字节，我们就不会有问题，但EVM上的情况并非如此。值得注意的是，PUSH指令的参数直接编码在代码缓冲区中，这使得它们的大小可变。</p>
+<hr>
+<p>最好用一个例子来解释的话，这是我们的代码缓冲区：</p>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/2.png" srcset="/img/loading.gif" lazyload></p>
+<p>它将被字节填充满：</p>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/3.png" srcset="/img/loading.gif" lazyload></p>
+<p>所对应的指令为：<br><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/4.png" srcset="/img/loading.gif" lazyload></p>
+<p>但是有些指令可以跨越多个字节:<br><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/5.png" srcset="/img/loading.gif" lazyload></p>
+<p>所以如果你在指令的中间jump的话，这将会出错：</p>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/6.png" srcset="/img/loading.gif" lazyload></p>
+<p>在这点上，你可能想知道为什么这很糟糕，我至少看到两个原因：</p>
+<ul>
+<li>这可能因为jump本身的问题，所以与其执行jump造成随机的穿插，还不如让其立刻奔溃；举个例子，如果你的代码中有一个PUSH1 FF，并且有人可以利用您的合约跳转到该FF字节，这将导致您的合约自毁；</li>
+<li>jump也可以用来隐藏代码，封装在其他指令的数据组文件中。这将击溃etherscan中的合同点验证（可以绕过已经发布的Solidity源码来执行任意代码）</li>
+</ul>
+<p>考虑到至少有这两个情况发生并且并没有好的理由来支持随意地使用jump，以太坊地开发者们决定让其非法化，在下一部分我们可以看到它们是如何做的。</p>
+<hr>
+<h2 id="🌳跳跃指向合理性"><a href="#🌳跳跃指向合理性" class="headerlink" title="🌳跳跃指向合理性"></a>🌳跳跃指向合理性</h2><blockquote>
+<p>基于我们现在已经知道的，黄皮书的以下部分将听起来很熟悉：</p>
+</blockquote>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/7.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以将此规范转换成一个简单的过程，在该过程中使用代码缓冲区并在该缓冲区中返回一组有效的跳跃目的地：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">valid_jump_destinations</span>(<span class="hljs-params">code: <span class="hljs-built_in">bytes</span></span>) -&gt; <span class="hljs-built_in">set</span>[<span class="hljs-built_in">int</span>]:<br>    jumpdests = <span class="hljs-built_in">set</span>()<br>    i = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> i &lt; <span class="hljs-built_in">len</span>(code):<br>        current_op = code[i]<br>        <span class="hljs-keyword">if</span> current_op == JUMPDEST.opcode:<br>            jumpdests.add(i)<br>        <span class="hljs-keyword">elif</span> PUSH1.opcode &lt;= current_op &lt;= PUSH32.opcode:<br>            i += current_op - PUSH1.opcode + <span class="hljs-number">1</span><br><br>        i += <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> jumpdests<br></code></pre></td></tr></table></figure>
+
+<p><code>JUMPEST</code> 是我们目前为止还没有遇到过的指令，它是干什么的呢？啥也不是！</p>
+<p><img src="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/8.png" srcset="/img/loading.gif" lazyload></p>
+<p>本质上，<code>JUMPEST</code>只是有效跳转目的地的标记。但值得注意的是，我们不能旨在运行时检查我们降落在代码缓冲区中恰好时JUMPEST（又称为0x5b）的位置上——我们需要提前从偏移量为0开始扫描代码缓冲区以查找这些操作码。在运行时，在跳转之后，我们需要检查我们降落的目的地是否是我们之前确定的有效目的地集的一部分。</p>
+<p>总之，到目前为止，我们已经了解了关于jump指令的一些有趣的事情：</p>
+<ul>
+<li>我们只能跳转到指令边界处由<code>JUMPEST</code>标记的偏移量</li>
+<li>我们不能评估一个<code>JUMP1</code>指令跳转目的地的有效性（即<code>cond==0</code>）</li>
+<li>尽管我们可以使用常规指令落空代码缓存区的结尾（下一条指令隐式的为<code>STOP</code>），但我们不能跳过代码缓冲区的结尾</li>
+</ul>
+<h2 id="🥇第一个无限循环"><a href="#🥇第一个无限循环" class="headerlink" title="🥇第一个无限循环"></a>🥇第一个无限循环</h2><blockquote>
+<p>我们终于有了跳跃，可以开始做一些有趣的事情了，比如条件和循环。让我们编写第一个无限循环来庆祝吧！！</p>
+</blockquote>
+<p><code>tests/test_jumps.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_infinite_loop</span>():<br>    <span class="hljs-comment"># 5b600056</span><br>    code = assemble([<br>        JUMPDEST,<br>        PUSH1, <span class="hljs-number">0</span>,<br>        JUMP<br>    ])<br>    <span class="hljs-keyword">with</span> pytest.raises(ExecutionLimitReached) <span class="hljs-keyword">as</span> excinfo:<br>        run(code, max_steps=<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+
+<p>聪明的你应该会注意到，我引入了<code>max_steps</code>参数，以便实际限制我们运行代码的时间。当然，在真正的EVM上，这将会收到气体的限制，但我们的目前的EVM还没有这一点。</p>
+<hr>
+<h2 id="🥈条件循环"><a href="#🥈条件循环" class="headerlink" title="🥈条件循环"></a>🥈条件循环</h2><blockquote>
+<p>作为最后一个挑战，让我们来尝试实现一下迭代计算四平方的小算法：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">n = <span class="hljs-number">4</span><br>loops = n<br>result = <span class="hljs-number">0</span><br><span class="hljs-keyword">while</span> loops != <span class="hljs-number">0</span>:<br>		result += n<br>		loops -= <span class="hljs-number">1</span><br><br><span class="hljs-comment"># should be n^2</span><br><span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
+
+
+
+<p>如果用原有的指令字节码实现这个算法是很有挑战性的，所以为了让我们更加轻松，需要在原来的基础上再补充一个新的指令<code>DUP</code>：</p>
+<ul>
+<li><code>DUP1</code> 是一个指令，代表着复制堆栈最顶部的元素，<code>DUP2</code>代表着复制堆栈第二个元素，依此类推一直到<code>DUP16</code>。这对于读取深层堆栈变量很有用。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">DUP1 =  register_instruction(<span class="hljs-number">0x80</span>,<span class="hljs-string">&quot;DUP1&quot;</span>,lamdba ctx:ctx.stack.push(ctx.stack.peek(<span class="hljs-number">0</span>)))<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>堆栈的<code>peek</code>函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">peek</span>(<span class="hljs-params">self, i</span>) -&gt; <span class="hljs-built_in">int</span>:<br>      <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.stack) &lt;= i:<br>          <span class="hljs-keyword">raise</span> StackUnderflow()<br><br>      <span class="hljs-keyword">return</span> self.stack[-(i + <span class="hljs-number">1</span>)]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SWAP1</code>  是堆栈的函数，将堆栈顶部与堆栈的第二个元素交换，<code>SWAP2</code> 将堆栈顶部和堆栈第三个元素交换，依此类推一直到<code>SWAP16</code>。这对于读取深层堆栈变量很有用。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">swap</span>(<span class="hljs-params">self,i:<span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.stack) &lt; i:<br>        <span class="hljs-keyword">raise</span> StackUnderflow()<br>        <br>    self.stack[-<span class="hljs-number">1</span>],self.stack[-i-<span class="hljs-number">1</span>] = self.stack[-i-<span class="hljs-number">1</span>],self.stack[-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SUB</code> 这样我们可以减少循环计数：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">SUB = register_instruction(<span class="hljs-number">0x03</span>,<span class="hljs-string">&quot;SUB&quot;</span>,<span class="hljs-keyword">lambda</span> ctx: ctx.stack.pop() - ctx.stack.pop())<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>测试代码如下：</p>
+<p><code>tests/test_jumps.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_four_squared</span>():<br>    <span class="hljs-comment"># 60048060005b8160125760005360016000f35b8201906001900390600556</span><br>    code = assemble([<br>                    <span class="hljs-comment"># stack</span><br>        PUSH1, <span class="hljs-number">4</span>,   <span class="hljs-comment"># n=4</span><br>        DUP1,       <span class="hljs-comment"># n=4, loops=4</span><br>        PUSH1, <span class="hljs-number">0</span>,   <span class="hljs-comment"># n=4, loops=4, result=0</span><br><br>        <span class="hljs-comment"># loop_cond</span><br>        <span class="hljs-comment"># if loops != 0, jump to loop_body</span><br>        JUMPDEST,<br>        DUP2,       <span class="hljs-comment"># n, loops, result, loops</span><br>        PUSH1, <span class="hljs-number">18</span>,  <span class="hljs-comment"># n, loops, result, loops, loop_body</span><br>        JUMPI,      <span class="hljs-comment"># n, loops, result</span><br><br>        <span class="hljs-comment"># return result</span><br>        PUSH1, <span class="hljs-number">0</span>,   <span class="hljs-comment"># n, loops, result, m_result</span><br>        MSTORE8,    <span class="hljs-comment"># n, loops</span><br>        PUSH1, <span class="hljs-number">1</span>,   <span class="hljs-comment"># n, loops, mem_length</span><br>        PUSH1, <span class="hljs-number">0</span>,   <span class="hljs-comment"># n, loops, mem_length, mem_offset</span><br>        RETURN,<br><br>        <span class="hljs-comment"># loop_body</span><br>        JUMPDEST,<br><br>        <span class="hljs-comment"># result += n</span><br>        DUP3,       <span class="hljs-comment"># n, loops, result, n</span><br>        ADD,        <span class="hljs-comment"># n, loops, result&#x27;=n+result</span><br><br>        <span class="hljs-comment"># loops -= 1</span><br>        SWAP1,      <span class="hljs-comment"># n, result&#x27;, loops</span><br>        PUSH1, <span class="hljs-number">1</span>,   <span class="hljs-comment"># n, result&#x27;, loops, 1</span><br>        SWAP1,      <span class="hljs-comment"># n, result&#x27;, 1, loops</span><br>        SUB,        <span class="hljs-comment"># n, result&#x27;, loops&#x27;=loops-1</span><br><br>        <span class="hljs-comment"># restore stack</span><br>        SWAP1,      <span class="hljs-comment"># n, loops&#x27;, result&#x27;</span><br><br>        <span class="hljs-comment"># jump to loop_cond</span><br>        PUSH1, <span class="hljs-number">5</span>,   <span class="hljs-comment"># n, loops&#x27;, result&#x27;, loop_cond</span><br>        JUMP,       <span class="hljs-comment"># -&gt; back to loop_cond</span><br>    ])<br><br>    ret = run(code, verbose=<span class="hljs-literal">True</span>, max_steps=<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">int</span>.from_bytes(ret, <span class="hljs-string">&#x27;big&#x27;</span>) == <span class="hljs-number">4</span> * <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>📕值得注意的几点：</p>
+<ol>
+<li>现在我们有了一组可行的堆栈指令，我们可以将变量留在堆栈上，并使用复制&#x2F;交换指令（DUP&#x2F;SWAP）对它们进行操作。我们访问内存的唯一时间是存储返回数据。</li>
+<li>我们没有标签，所以我们必须计算并手动硬编码跳转偏移量（例如，最后的PUSH15，jump返回loop_cond块）</li>
+<li>当我们想推送一个值时，我们必须根据参数（PUSH1、PUSH2、…PUSH32）的字节</li>
+</ol>
+<p>实际上：我们到到目前位置所构建的（仅在字节数组级别之上的原始指令上的薄包装器）与Yul进行比较时，仍会感觉到Yul是一种相当高级的语言，以Yul文档中的这段摘录为例：</p>
+<blockquote>
+<p>没有为<code>SWAP</code>、<code>DUP</code>、<code>JUMPDEST</code>、<code>JUMP</code>、<code>JUMPI</code>提供显式语句，因为前两个使数据流模糊，后两个使控制流模糊。</p>
+</blockquote>
+<h2 id="🥉接下来的内容"><a href="#🥉接下来的内容" class="headerlink" title="🥉接下来的内容"></a>🥉接下来的内容</h2><p>我们已经开始感到我们需要某些东西比如<code>calldata</code>来为我们的小项目建模输入。</p>
+<p>同样我们也没有建立预想中的返回。在那之后我们很有可能做一些非凡的事情比如内部交易或者是合约创建。我们第三部分见吧！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/" class="category-chain-item">区块链</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="category-chain-item">以太坊虚拟机</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/EVM%E8%99%9A%E6%8B%9F%E6%9C%BA-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/">#EVM虚拟机 源码构建</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>狠人！用Python从零敲出一个以太坊虚拟机-2</div>
+      <div>http://nangbowan.github.io/2022/11/11/狠人！用Python从零敲出一个以太坊虚拟机-2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Science_Jun</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/20/yarn%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/08/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%A7%94%E6%89%98%E8%B0%83%E7%94%A8%E6%94%BB%E5%87%BB/" title="区块链骇客第五讲-委托调用攻击">
+                        <span class="hidden-mobile">区块链骇客第五讲-委托调用攻击</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.17/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"LYBgVrYL1X3UGYD7wFo900Bz-9Nh9j0Va","appKey":"WVepGEwUKqFs0dVWeXeT8Gn8","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

